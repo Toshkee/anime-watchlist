@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= anime.title %> Details</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/watchlist">My Watchlist</a>
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <div class="anime-details">
+    <h1><%= anime.title %></h1>
+    <% if (anime.image) { %>
+      <img src="/assets/hxh.jpg/<%= anime.image %>" alt="<%= anime.title %>" style="width:300px;height:auto;">
+    <% } %>
+    <p><strong>Description:</strong> <%= anime.description %></p>
+    <p><strong>Genre:</strong> <%= anime.genre %></p>
+    <p><strong>Episodes:</strong> <%= anime.episodes %></p>
+  </div>
+</body>
+</html>

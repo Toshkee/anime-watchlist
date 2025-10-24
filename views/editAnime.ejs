@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Anime</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/navbar'); %>
+  <div class="form-box">
+    <h2>Edit Anime</h2>
+    <form method="POST" action="/edit/<%= anime._id %>">
+      <input type="text" name="title" value="<%= anime.title %>" required><br>
+      <select name="status">
+        <option <%= anime.status==='Watching'?'selected':'' %>>Watching</option>
+        <option <%= anime.status==='Completed'?'selected':'' %>>Completed</option>
+        <option <%= anime.status==='Plan to Watch'?'selected':'' %>>Plan to Watch</option>
+      </select><br>
+      <input type="number" name="rating" value="<%= anime.rating %>"><br>
+      <textarea name="notes"><%= anime.notes %></textarea><br>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</body>
+</html>

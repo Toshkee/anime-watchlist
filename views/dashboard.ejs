@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="top-nav">
+  <a href="/dashboard">Dashboard</a>
+  <a href="/add">Add New Anime</a>
+  <a href="/watchlist">My Watchlist</a>  
+  <a href="/logout">Logout</a>
+</nav>
+  <h2>Welcome, <%= username %> 👋</h2>
+
+  <div class="anime-grid">
+  <% animes.forEach(anime => { %>
+    <div class="anime-card-wrapper">
+      <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
+        <div class="anime-card">
+          <img src="/images/<%= anime.title.replace(/\s/g, '') %>.jpg" alt="<%= anime.title %>">
+          <h3><%= anime.title %></h3>
+        </div>
+      </a>
+      <form method="POST" action="/add-to-watchlist/<%= anime._id %>">
+        <button type="submit" class="watchlist-btn">Add to My Watchlist</button>
+      </form>
+    </div>
+  <% }) %>
+</div>
+</body>
+</html>

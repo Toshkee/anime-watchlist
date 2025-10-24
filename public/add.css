@@ -1,0 +1,111 @@
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background-color: #1e1e2f; 
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+nav {
+  background-color: #111; 
+  padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav a {
+  color: #1de9b6;
+  text-decoration: none;
+  margin: 0 18px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #1de9b6;
+}
+
+
+.add-anime-container {
+  width: 90%;
+  max-width: 500px;
+  margin: 120px auto 50px auto; 
+  background: linear-gradient(145deg, #1a1a2b, #2c2c3e);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(29,233,182,0.5);
+  color: #fff;
+  text-align: center;
+}
+
+.add-anime-container h1 {
+  font-size: 28px;
+  color: #1de9b6;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.add-anime-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-anime-container input[type="text"],
+.add-anime-container input[type="file"],
+.add-anime-container select,
+.add-anime-container textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background-color: #1e1e2f;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.add-anime-container input:focus,
+.add-anime-container select:focus,
+.add-anime-container textarea:focus {
+  border-color: #1de9b6;
+  box-shadow: 0 0 8px rgba(29,233,182,0.6);
+}
+
+.add-anime-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-anime-container button {
+  padding: 12px;
+  background-color: #1de9b6;
+  color: #111;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-anime-container button:hover {
+  background-color: #14b89f;
+  box-shadow: 0 0 12px rgba(29,233,182,0.7);
+}
+
+
+@media (max-width: 600px) {
+  .add-anime-container {
+    width: 90%;
+    padding: 20px;
+  }
+}

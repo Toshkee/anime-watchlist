@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My Watchlist</title>
+  <link rel="stylesheet" href="/watchlist.css">
+</head>
+
+<body>
+  <nav class="top-nav">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/add">Add New Anime</a>
+    <a href="/watchlist">My Watchlist</a>
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <div class="dashboard-content">
+    <h2><%= username %>'s Watchlist</h2>
+
+    <% if (myAnimes.length === 0) { %>
+      <p>No animes added yet.</p>
+    <% } else { %>
+      <div class="anime-grid">
+        <% myAnimes.forEach(anime => { %>
+          <div class="anime-card">
+            <h3><%= anime.title %></h3>
+            <p>Status: <%= anime.status %></p>
+            <p>Notes: <%= anime.notes %></p>
+
+            <div class="card-buttons">
+              <button 
+                class="update-btn"
+                onclick="openModal('<%= anime._id %>', '<%= anime.status %>', `<%= anime.notes %>`)">
+                Update
+              </button>
+
+              <form method="POST" action="/delete/<%= anime._id %>">
+                <button type="submit" class="delete-btn">Delete</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Modal -->
+  <div id="updateModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Update Anime</h3>
+      <form id="updateForm" method="POST">
+        <label>Status:</label>
+        <select id="modalStatus" name="status">
+          <option value="Watching">Watching</option>
+          <option value="Plan to Watch">Plan to Watch</option>
+          <option value="Completed">Completed</option>
+          <option value="Dropped">Dropped</option>
+        </select>
+
+        <label>Notes:</label>
+        <textarea id="modalNotes" name="notes" rows="3"></textarea>
+
+        <button type="submit" class="save-btn">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/watchlist.js"></script>
+</body>
+</html>
