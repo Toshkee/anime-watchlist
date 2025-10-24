@@ -26,7 +26,6 @@ It’s designed as a practical full-stack CRUD project to demonstrate **backend 
 	•	⭐ Add a “Favorites” or “Top 10” list.
 	•	🕒 Track episodes watched with a progress bar.
 	•	🔔 Add notifications or reminders for upcoming episodes.
-	•	📱 Create a mobile-friendly PWA (Progressive Web App).
 	
 ---
 
@@ -50,4 +49,4 @@ It’s designed as a practical full-stack CRUD project to demonstrate **backend 
   Email: tosiicp@gmail.com
   GitHub: https://github.com/Toshkee
  
- ![Screenshot of the idea](/assets/Screenshot%202025-10-24%20at%2009.50.14.png)
+ ![Screenshot of the idea](/assets/Screenshot%202025-10-24%20at%2022.39.59.png)
