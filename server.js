@@ -187,7 +187,7 @@ app.get("/watchlist", async (req, res) => {
         if (!userId) return res.redirect("/login");
 
 
-        const myAnimes = await Anime.find({ user: userId });
+        const myAnimes = await Anime.find({ user: userId, forDashboard: false });
 
         res.render("watchlist", { myAnimes, username: req.session.username });
     } catch (err) {
@@ -202,28 +202,35 @@ app.post("/add-to-watchlist/:id", async (req, res) => {
         const userId = req.session.userId;
         if (!userId) return res.redirect("/login");
 
-        const defaultAnime = await Anime.findById(req.params.id);
+        const anime = await Anime.findById(req.params.id);
 
-        if (!defaultAnime || !defaultAnime.isDefault) return res.redirect("/dashboard");
+        if (!anime) return res.redirect("/dashboard");
 
+        
+        if (!anime.isDefault && !(anime.forDashboard && anime.user.equals(userId))) {
+            return res.redirect("/dashboard");
+        }
 
+        
         const alreadyAdded = await Anime.findOne({
-            title: defaultAnime.title,
-            user: userId
+            title: anime.title,
+            user: userId,
+            forDashboard: false
         });
 
         if (!alreadyAdded) {
             await Anime.create({
-                title: defaultAnime.title,
-                status: defaultAnime.status,
-                rating: defaultAnime.rating,
-                notes: defaultAnime.notes,
+                title: anime.title,
+                status: anime.status,
+                rating: anime.rating || 0,
+                notes: anime.notes || "",
                 user: userId,
                 isDefault: false,
                 forDashboard: false
             });
         }
 
+        
         res.redirect("/dashboard");
     } catch (err) {
         console.error(err);

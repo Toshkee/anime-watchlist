@@ -5,28 +5,42 @@
   <link rel="stylesheet" href="/dashboard.css">
 </head>
 <body>
-    <nav class="top-nav">
-  <a href="/dashboard">Dashboard</a>
-  <a href="/add">Add New Anime</a>
-  <a href="/watchlist">My Watchlist</a>  
-  <a href="/logout">Logout</a>
-</nav>
+  <nav class="top-nav">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/add">Add New Anime</a>
+    <a href="/watchlist">My Watchlist</a>  
+    <a href="/logout">Logout</a>
+  </nav>
+
   <h2>Welcome, <%= username %> 👋</h2>
 
   <div class="anime-grid">
-  <% animes.forEach(anime => { %>
-    <div class="anime-card-wrapper">
-      <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
-        <div class="anime-card">
-          <img src="/images/<%= anime.title.replace(/\s/g, '') %>.jpg" alt="<%= anime.title %>">
-          <h3><%= anime.title %></h3>
+    <% animes.forEach(anime => { %>
+      <div class="anime-card-wrapper">
+        <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
+          <div class="anime-card">
+            <img src="/images/<%= anime.title.replace(/\s/g, '') %>.jpg" alt="<%= anime.title %>">
+            <h3><%= anime.title %></h3>
+          </div>
+        </a>
+
+        <div class="card-buttons">
+          <!-- Add to Watchlist button (for default or user-added animes) -->
+          <% if (!anime.forDashboard || anime.isDefault) { %>
+            <form method="POST" action="/add-to-watchlist/<%= anime._id %>">
+              <button type="submit" class="watchlist-btn">Add to My Watchlist</button>
+            </form>
+          <% } %>
+
+          <!-- Delete button only for newly added dashboard animes -->
+          <% if (anime.forDashboard && !anime.isDefault) { %>
+            <form method="POST" action="/delete/<%= anime._id %>">
+              <button type="submit" class="delete-btn">Delete</button>
+            </form>
+          <% } %>
         </div>
-      </a>
-      <form method="POST" action="/add-to-watchlist/<%= anime._id %>">
-        <button type="submit" class="watchlist-btn">Add to My Watchlist</button>
-      </form>
-    </div>
-  <% }) %>
-</div>
+      </div>
+    <% }) %>
+  </div>
 </body>
 </html>
