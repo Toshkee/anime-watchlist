@@ -1,7 +1,7 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #1e1e2f; 
+  background-color: #1e1e2f;
   margin: 0;
   padding: 0;
   color: #fff;
@@ -21,7 +21,7 @@ nav a:hover {
   text-shadow: 0 0 8px #1de9b6;
 }
 
-/* Homepage container */
+
 .home-container {
   width: 90%;
   max-width: 600px;
@@ -29,13 +29,13 @@ nav a:hover {
   background: linear-gradient(145deg, #1a1a2b, #2c2c3e);
   border-radius: 15px;
   padding: 50px 30px;
-  box-shadow: 0 8px 25px rgba(29,233,182,0.5);
+  box-shadow: 0 8px 25px rgba(29, 233, 182, 0.5);
   color: #fff;
   text-align: center;
   font-family: Arial, sans-serif;
 }
 
-/* Heading */
+
 .home-container h1 {
   font-size: 32px;
   color: #1de9b6;
@@ -43,14 +43,14 @@ nav a:hover {
   text-shadow: 1px 1px 2px #000;
 }
 
-/* Subtext */
+
 .home-container p {
   font-size: 18px;
   color: #ccc;
   margin-bottom: 35px;
 }
 
-/* Button */
+
 .home-container button {
   padding: 15px 30px;
   font-size: 18px;
@@ -65,10 +65,10 @@ nav a:hover {
 
 .home-container button:hover {
   background-color: #14b89f;
-  box-shadow: 0 0 12px rgba(29,233,182,0.7);
+  box-shadow: 0 0 12px rgba(29, 233, 182, 0.7);
 }
 
-/* Responsive */
+
 @media (max-width: 600px) {
   .home-container {
     width: 90%;

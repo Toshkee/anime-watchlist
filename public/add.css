@@ -1,18 +1,18 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #1e1e2f; 
+  background-color: #1e1e2f;
   margin: 0;
   padding: 0;
   color: #fff;
 }
 
 nav {
-  background-color: #111; 
+  background-color: #111;
   padding: 12px 0;
   display: flex;
   justify-content: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -36,11 +36,11 @@ nav a:hover {
 .add-anime-container {
   width: 90%;
   max-width: 500px;
-  margin: 120px auto 50px auto; 
+  margin: 120px auto 50px auto;
   background: linear-gradient(145deg, #1a1a2b, #2c2c3e);
   border-radius: 15px;
   padding: 30px;
-  box-shadow: 0 8px 20px rgba(29,233,182,0.5);
+  box-shadow: 0 8px 20px rgba(29, 233, 182, 0.5);
   color: #fff;
   text-align: center;
 }
@@ -58,26 +58,52 @@ nav a:hover {
   gap: 15px;
 }
 
-.add-anime-container input[type="text"],
-.add-anime-container input[type="file"],
-.add-anime-container select,
-.add-anime-container textarea {
+/* Anime Title input */
+.add-anime-container input[name="title"] {
   width: 100%;
   padding: 12px;
+  height: 45px;
+  /* same width/height as other boxes */
   border-radius: 10px;
   border: 1px solid #555;
   background-color: #1e1e2f;
   color: #fff;
   font-size: 16px;
-  outline: none;
-  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+
+.add-anime-container select[name="status"] {
+  width: 100%;
+  padding: 10px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background-color: #1e1e2f;
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+
+.add-anime-container textarea[name="notes"] {
+  width: 100%;
+  padding: 15px;
+  min-height: 120px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background-color: #1e1e2f;
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
 .add-anime-container input:focus,
 .add-anime-container select:focus,
 .add-anime-container textarea:focus {
   border-color: #1de9b6;
-  box-shadow: 0 0 8px rgba(29,233,182,0.6);
+  box-shadow: 0 0 8px rgba(29, 233, 182, 0.6);
 }
 
 .add-anime-container textarea {
@@ -99,7 +125,7 @@ nav a:hover {
 
 .add-anime-container button:hover {
   background-color: #14b89f;
-  box-shadow: 0 0 12px rgba(29,233,182,0.7);
+  box-shadow: 0 0 12px rgba(29, 233, 182, 0.7);
 }
 
 

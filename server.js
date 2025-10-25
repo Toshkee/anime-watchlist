@@ -45,70 +45,66 @@ app.get("/add", async (req, res) => {
     res.render("addAnime", { username: req.session.username, userAnimes });
 });
 
-app.get("/add", (req, res) => {
-  if (!req.session.userId) return res.redirect("/login");
-  res.render("addAnime", { username: req.session.username });
-});
 
 app.post("/add", async (req, res) => {
-  if (!req.session.userId) return res.redirect("/login");
-  const { title, status, notes } = req.body;
+    if (!req.session.userId) return res.redirect("/login");
+    const { title, status, notes } = req.body;
 
-  try {
-    await Anime.create({
-      title,
-      status,
-      notes: notes || "",
-      user: req.session.userId,  
-      isDefault: false,          
-      forDashboard: false        
-    });
+    try {
+        await Anime.create({
+            title,
+            status,
+            notes: notes || "",
+            user: req.session.userId,
+            isDefault: false,
+            forDashboard: true
+        });
 
-    res.redirect("/watchlist");   
-  } catch (err) {
-    console.log(err);
-    res.send("Error adding anime.");
-  }
+        res.redirect("/dashboard");
+    } catch (err) {
+        console.log(err);
+        res.send("Error adding anime.");
+    }
 });
 
 app.post("/delete/:id", async (req, res) => {
-  const userId = req.session.userId;
-  if (!userId) return res.redirect("/login");
+    const userId = req.session.userId;
+    if (!userId) return res.redirect("/login");
 
-  try {
-    await Anime.deleteOne({ _id: req.params.id, user: userId });
-    res.redirect("/watchlist");
-  } catch (err) {
-    console.log(err);
-    res.send("Error deleting anime.");
-  }
+    try {
+        await Anime.deleteOne({ _id: req.params.id, user: userId });
+        res.redirect("/watchlist");
+    } catch (err) {
+        console.log(err);
+        res.send("Error deleting anime.");
+    }
 });
 
 
 app.get('/update/:id', async (req, res) => {
-  if (!req.session.userId) return res.redirect('/login');
+    if (!req.session.userId) return res.redirect('/login');
 
-  const anime = await Anime.findById(req.params.id);
-  if (!anime) return res.redirect('/watchlist');
+    const anime = await Anime.findById(req.params.id);
+    if (!anime) return res.redirect('/watchlist');
 
-  res.render('updateAnime', { anime, username: req.session.username });
+    res.render('updateAnime', { anime, username: req.session.username });
 });
 
 app.post('/update/:id', async (req, res) => {
-  if (!req.session.userId) return res.redirect('/login');
+    if (!req.session.userId) return res.redirect('/login');
 
-  const { status, notes } = req.body;
+    const { status, notes } = req.body;
 
-  try {
-    await Anime.findByIdAndUpdate(req.params.id, {
-      status,
-      notes: notes || ""
-    });
-    res.redirect('/watchlist');
-  } catch (err) {
-    console.log(err);
-    res.send('Error updating anime.');
-  }
+    try {
+        await Anime.findByIdAndUpdate(req.params.id, {
+            status,
+            notes: notes || ""
+        });
+        res.redirect('/watchlist');
+    } catch (err) {
+        console.log(err);
+        res.send('Error updating anime.');
+    }
 });
 
 
@@ -150,91 +146,101 @@ app.get("/logout", (req, res) => {
 
 
 app.get("/dashboard", async (req, res) => {
-  const userId = req.session.userId;
-  if (!userId) return res.redirect("/login");
-
-  // Default animes
-  const defaultList = [
-    "One Piece","Demon Slayer","Naruto","Hunter x Hunter","Monster",
-    "Black Clover","Bleach","Dragon Ball","Code Geass","Neon Genesis Evangelion",
-    "Cowboy Bebop","Death Note","Berserk","JoJo's Bizarre Adventure",
-    "Attack on Titan","Vinland Saga","Hajime no Ippo","Jujutsu Kaisen",
-    "Haikyu","Pokemon"
-  ];
+    const userId = req.session.userId;
+    if (!userId) return res.redirect("/login");
 
 
- for (let title of defaultList) {
-  const exists = await Anime.findOne({ title: title, isDefault: true });
-  if (!exists) {
-    await Anime.create({
-      title,
-      status: "Plan to Watch",
-      rating: 0,
-      notes: "",
-      user: null,
-      isDefault: true
-    });
-  }
-}
+    const defaultList = [
+        "One Piece", "Demon Slayer", "Naruto", "Hunter x Hunter", "Monster",
+        "Black Clover", "Bleach", "Dragon Ball", "Code Geass", "Neon Genesis Evangelion",
+        "Cowboy Bebop", "Death Note", "Berserk", "JoJo's Bizarre Adventure",
+        "Attack on Titan", "Vinland Saga", "Hajime no Ippo", "Jujutsu Kaisen",
+        "Haikyu", "Pokemon"
+    ];
 
-const defaultAnimes = await Anime.find({ isDefault: true });
-const userAnimes = await Anime.find({ user: userId, forDashboard: true }); 
-const animes = [...defaultAnimes, ...userAnimes];
 
-  res.render("dashboard", { username: req.session.username, animes });
+    for (let title of defaultList) {
+        const exists = await Anime.findOne({ title: title, isDefault: true });
+        if (!exists) {
+            await Anime.create({
+                title,
+                status: "Plan to Watch",
+                rating: 0,
+                notes: "",
+                user: null,
+                isDefault: true
+            });
+        }
+    }
+
+    const defaultAnimes = await Anime.find({ isDefault: true });
+    const userAnimes = await Anime.find({ user: userId, forDashboard: true });
+    const animes = [...defaultAnimes, ...userAnimes];
+
+    res.render("dashboard", { username: req.session.username, animes });
 });
 
 
-app.get('/watchlist', async (req, res) => {
-  const userId = req.session.userId;
-  if (!userId) return res.redirect('/login');
+app.get("/watchlist", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        if (!userId) return res.redirect("/login");
 
-  const myAnimes = await Anime.find({ user: userId, isDefault: false });
 
-  res.render('watchlist', { myAnimes, username: req.session.username });
+        const myAnimes = await Anime.find({ user: userId });
+
+        res.render("watchlist", { myAnimes, username: req.session.username });
+    } catch (err) {
+        console.error(err);
+        res.send("Error fetching watchlist");
+    }
 });
 
 
 app.post("/add-to-watchlist/:id", async (req, res) => {
-  const userId = req.session.userId;
-  if (!userId) return res.redirect("/login");
+    try {
+        const userId = req.session.userId;
+        if (!userId) return res.redirect("/login");
 
-  const animeId = req.params.id;
+        const defaultAnime = await Anime.findById(req.params.id);
 
-  try {
-    const anime = await Anime.findById(animeId);
-    if (!anime || !anime.isDefault) return res.redirect("/dashboard");
+        if (!defaultAnime || !defaultAnime.isDefault) return res.redirect("/dashboard");
 
-    
-    const exists = await Anime.findOne({ title: anime.title, user: userId });
-    if (!exists) {
-      await Anime.create({
-        title: anime.title,
-        status: anime.status,
-        rating: anime.rating,
-        notes: anime.notes,
-        user: userId,
-        isDefault: false
-      });
+
+        const alreadyAdded = await Anime.findOne({
+            title: defaultAnime.title,
+            user: userId
+        });
+
+        if (!alreadyAdded) {
+            await Anime.create({
+                title: defaultAnime.title,
+                status: defaultAnime.status,
+                rating: defaultAnime.rating,
+                notes: defaultAnime.notes,
+                user: userId,
+                isDefault: false,
+                forDashboard: false
+            });
+        }
+
+        res.redirect("/dashboard");
+    } catch (err) {
+        console.error(err);
+        res.send("Error adding anime to watchlist");
     }
-
-    res.redirect("/dashboard"); 
-  } catch (err) {
-    console.log(err);
-    res.send("Error adding to watchlist.");
-  }
 });
 
 
 app.get("/anime/:title", async (req, res) => {
-  const title = decodeURIComponent(req.params.title); 
-  const anime = await Anime.findOne({ title: title });
+    const title = decodeURIComponent(req.params.title);
+    const anime = await Anime.findOne({ title: title });
 
-  if (!anime) {
-    return res.status(404).send("Anime not found");
-  }
+    if (!anime) {
+        return res.status(404).send("Anime not found");
+    }
 
-  res.render("animeDetails", { anime, username: req.session.username });
+    res.render("animeDetails", { anime, username: req.session.username });
 });
 
 
