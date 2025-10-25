@@ -1,11 +1,23 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #1e1e2f;
   margin: 0;
   padding: 0;
   color: #fff;
+  overflow-x: hidden;
+
+
+  background: linear-gradient(-45deg, #1de9b6, #1a1a2b, #2c2c3e, #14b89f, #1de9b6);
+  background-size: 800% 800%; 
+  animation: gradientAnimation 10s ease infinite;
 }
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 nav {
   background-color: #111;
@@ -43,6 +55,8 @@ nav a:hover {
   box-shadow: 0 8px 20px rgba(29, 233, 182, 0.5);
   color: #fff;
   text-align: center;
+  position: relative;
+  z-index: 1; 
 }
 
 .add-anime-container h1 {
@@ -52,52 +66,46 @@ nav a:hover {
   text-shadow: 1px 1px 2px #000;
 }
 
+
 .add-anime-container form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-/* Anime Title input */
-.add-anime-container input[name="title"] {
-  width: 100%;
-  padding: 12px;
-  height: 45px;
-  /* same width/height as other boxes */
-  border-radius: 10px;
-  border: 1px solid #555;
-  background-color: #1e1e2f;
-  color: #fff;
-  font-size: 16px;
-  box-sizing: border-box;
+  margin: 0;
 }
 
 
-.add-anime-container select[name="status"] {
-  width: 100%;
-  padding: 10px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid #555;
-  background-color: #1e1e2f;
-  color: #fff;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-
+.add-anime-container input[name="title"],
+.add-anime-container select[name="status"],
 .add-anime-container textarea[name="notes"] {
   width: 100%;
-  padding: 15px;
-  min-height: 120px;
   border-radius: 10px;
   border: 1px solid #555;
   background-color: #1e1e2f;
   color: #fff;
   font-size: 16px;
   box-sizing: border-box;
+  outline: none;
+  transition: 0.3s;
+}
+
+
+.add-anime-container input[name="title"] {
+  padding: 12px;
+  height: 45px;
+}
+
+.add-anime-container select[name="status"] {
+  padding: 10px;
+  height: 40px;
+}
+
+.add-anime-container textarea[name="notes"] {
+  padding: 15px;
+  min-height: 120px;
   resize: vertical;
 }
+
 
 .add-anime-container input:focus,
 .add-anime-container select:focus,
@@ -106,10 +114,6 @@ nav a:hover {
   box-shadow: 0 0 8px rgba(29, 233, 182, 0.6);
 }
 
-.add-anime-container textarea {
-  resize: vertical;
-  min-height: 80px;
-}
 
 .add-anime-container button {
   padding: 12px;
@@ -133,5 +137,20 @@ nav a:hover {
   .add-anime-container {
     width: 90%;
     padding: 20px;
+  }
+
+  .add-anime-container h1 {
+    font-size: 24px;
+  }
+
+  .add-anime-container input[name="title"],
+  .add-anime-container select[name="status"],
+  .add-anime-container textarea[name="notes"] {
+    font-size: 14px;
+  }
+
+  .add-anime-container button {
+    font-size: 14px;
+    padding: 10px;
   }
 }

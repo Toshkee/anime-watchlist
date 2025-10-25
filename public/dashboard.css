@@ -1,16 +1,32 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #1e1e2f;
   margin: 0;
   padding: 0;
   color: #fff;
+  overflow-x: hidden;
+
+
+  background: linear-gradient(-45deg, #1de9b6, #1a1a2b, #2c2c3e, #14b89f);
+  background-size: 600% 600%;
+  animation: gradientAnimation 6s ease infinite;
 }
+
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 nav {
   background-color: #111;
   padding: 12px 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 nav a {
@@ -26,12 +42,6 @@ nav a:hover {
   text-shadow: 0 0 8px #1de9b6;
 }
 
-h2 {
-  margin-top: 20px;
-  font-size: 28px;
-  color: #1de9b6;
-  text-shadow: 1px 1px 2px #000;
-}
 
 .anime-grid {
   display: flex;
@@ -39,6 +49,22 @@ h2 {
   justify-content: center;
   margin: 40px 20px;
   gap: 25px;
+}
+
+
+.anime-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.anime-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.anime-link .anime-card {
+  cursor: pointer;
 }
 
 .anime-card {
@@ -84,17 +110,6 @@ h2 {
   margin: 4px 0 0 0;
 }
 
-@media (max-width: 600px) {
-  .anime-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .anime-card {
-    width: 80%;
-    height: auto;
-  }
-}
 
 .watchlist-btn {
   background-color: #1de9b6;
@@ -111,17 +126,15 @@ h2 {
   background-color: #14b89f;
 }
 
-.anime-card-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.anime-link {
-  text-decoration: none;
-  color: inherit;
-}
+@media (max-width: 600px) {
+  .anime-grid {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.anime-link .anime-card {
-  cursor: pointer;
+  .anime-card {
+    width: 80%;
+    height: auto;
+  }
 }

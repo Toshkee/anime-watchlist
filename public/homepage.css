@@ -1,10 +1,21 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #1e1e2f;
   margin: 0;
   padding: 0;
   color: #fff;
+  overflow-x: hidden;
+
+  
+  background: linear-gradient(-45deg, #1de9b6, #1a1a2b, #2c2c3e, #14b89f);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 nav a {
@@ -21,7 +32,6 @@ nav a:hover {
   text-shadow: 0 0 8px #1de9b6;
 }
 
-
 .home-container {
   width: 90%;
   max-width: 600px;
@@ -30,11 +40,10 @@ nav a:hover {
   border-radius: 15px;
   padding: 50px 30px;
   box-shadow: 0 8px 25px rgba(29, 233, 182, 0.5);
-  color: #fff;
   text-align: center;
-  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 1;
 }
-
 
 .home-container h1 {
   font-size: 32px;
@@ -43,13 +52,11 @@ nav a:hover {
   text-shadow: 1px 1px 2px #000;
 }
 
-
 .home-container p {
   font-size: 18px;
   color: #ccc;
   margin-bottom: 35px;
 }
-
 
 .home-container button {
   padding: 15px 30px;
@@ -68,6 +75,16 @@ nav a:hover {
   box-shadow: 0 0 12px rgba(29, 233, 182, 0.7);
 }
 
+.anime-character {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  height: auto;
+  margin-top: 250px;
+  z-index: -1; 
+}
 
 @media (max-width: 600px) {
   .home-container {

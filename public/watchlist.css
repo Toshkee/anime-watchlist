@@ -1,16 +1,32 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #1e1e2f;
   margin: 0;
   padding: 0;
   color: #fff;
+  overflow-x: hidden;
+
+  
+  background: linear-gradient(-45deg, #1de9b6, #1a1a2b, #2c2c3e, #14b89f);
+  background-size: 600% 600%;
+  animation: gradientAnimation 6s ease infinite;
 }
+
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 nav {
   background-color: #111;
   padding: 12px 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 nav a {
@@ -26,15 +42,8 @@ nav a:hover {
   text-shadow: 0 0 8px #1de9b6;
 }
 
-h2 {
-  margin-top: 20px;
-  font-size: 28px;
-  color: #1de9b6;
-  text-shadow: 1px 1px 2px #000;
-}
 
-
-.anime-grid {
+.watchlist-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -43,7 +52,7 @@ h2 {
 }
 
 
-.anime-card {
+.watchlist-card {
   background: linear-gradient(145deg, #2c2c3e, #1a1a2b);
   width: 160px;
   height: 250px;
@@ -58,12 +67,12 @@ h2 {
   overflow: hidden;
 }
 
-.anime-card:hover {
+.watchlist-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 25px rgba(29, 233, 182, 0.7);
 }
 
-.anime-card img {
+.watchlist-card img {
   width: 140px;
   height: 160px;
   border-radius: 10px;
@@ -72,7 +81,7 @@ h2 {
   border: 2px solid #1de9b6;
 }
 
-.anime-card h3 {
+.watchlist-card h3 {
   margin: 0;
   font-size: 16px;
   font-weight: bold;
@@ -80,13 +89,14 @@ h2 {
   text-shadow: 1px 1px 3px #000;
 }
 
-.anime-card p {
+.watchlist-card p {
   font-size: 12px;
   color: #ccc;
   margin: 4px 0 0 0;
 }
 
-.anime-card button {
+
+.watchlist-card button {
   margin-top: 6px;
   padding: 6px 8px;
   font-size: 12px;
@@ -98,23 +108,11 @@ h2 {
   transition: 0.2s;
 }
 
-.anime-card button:hover {
+.watchlist-card button:hover {
   background-color: #14b89f;
   box-shadow: 0 0 8px #1de9b6;
 }
 
-
-@media (max-width: 600px) {
-  .anime-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .anime-card {
-    width: 80%;
-    height: auto;
-  }
-}
 
 .modal {
   display: none;
@@ -162,4 +160,17 @@ h2 {
 
 .save-btn:hover {
   background-color: #13c5a0;
+}
+
+
+@media (max-width: 600px) {
+  .watchlist-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .watchlist-card {
+    width: 80%;
+    height: auto;
+  }
 }
