@@ -15,33 +15,44 @@
   </nav>
 
   <div class="dashboard-content">
-    <h2><%= username %>'s Watchlist</h2>
+    <h2>
+      <%= username %>'s Watchlist
+    </h2>
 
-    <% if (myAnimes.length === 0) { %>
+    <% if (myAnimes.length===0) { %>
       <p>No animes added yet.</p>
-    <% } else { %>
-      <div class="anime-grid">
-        <% myAnimes.forEach(anime => { %>
-          <div class="anime-card">
-            <h3><%= anime.title %></h3>
-            <p>Status: <%= anime.status %></p>
-            <p>Notes: <%= anime.notes %></p>
+      <% } else { %>
+        <div class="anime-grid">
+          <% myAnimes.forEach(anime=> { %>
+            <div class="anime-card-wrapper">
+              <div class="anime-card">
+                <!-- ✅ Added image just like in dashboard -->
+                <img src="/assets/anime_images/<%= anime.image || 'default.png' %>"
+                  onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
 
-            <div class="card-buttons">
-              <button 
-                class="update-btn"
-                onclick="openModal('<%= anime._id %>', '<%= anime.status %>', `<%= anime.notes %>`)">
-                Update
-              </button>
+                <h3>
+                  <%= anime.title %>
+                </h3>
+                <p>Status: <%= anime.status %>
+                </p>
+                <p>Notes: <%= anime.notes || 'No notes yet' %>
+                </p>
+              </div>
 
-              <form method="POST" action="/delete/<%= anime._id %>">
-                <button type="submit" class="delete-btn">Delete</button>
-              </form>
+              <div class="card-buttons">
+                <button class="update-btn"
+                  onclick="openModal('<%= anime._id %>', '<%= anime.status %>', `<%= anime.notes %>`)">
+                  Update
+                </button>
+
+                <form method="POST" action="/delete/<%= anime._id %>">
+                  <button type="submit" class="delete-btn">Delete</button>
+                </form>
+              </div>
             </div>
-          </div>
-        <% }) %>
-      </div>
-    <% } %>
+            <% }) %>
+        </div>
+        <% } %>
   </div>
 
   <!-- Modal -->
@@ -68,4 +79,5 @@
 
   <script src="/watchlist.js"></script>
 </body>
+
 </html>

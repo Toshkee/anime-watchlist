@@ -322,7 +322,6 @@ app.get("/dashboard", async (req, res) => {
                 {
                     $set: {
                         status: "Plan to Watch",
-                        rating: 0,
                         notes: "",
                         user: null,
                         isDefault: true,
@@ -391,7 +390,6 @@ app.post("/add-to-watchlist/:id", async (req, res) => {
             await Anime.create({
                 title: anime.title,
                 status: anime.status,
-                rating: anime.rating || 0,
                 notes: anime.notes || "",
                 user: userId,
                 isDefault: false,
