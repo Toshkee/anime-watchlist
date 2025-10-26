@@ -167,14 +167,14 @@ nav a:hover {
   pointer-events: none; 
 }
 
-/* Luffy 2 image under the box */
+
 .luffy2 {
   position: absolute;
-  bottom: -180px; /* adjust to move up or down */
+  bottom: -180px; 
   left: 50%;
   transform: translateX(-50%);
-  width: 320px; /* adjust size as needed */
+  width: 320px; 
   height: auto;
-  z-index: 0; /* behind the box */
-  pointer-events: none; /* make sure it doesn't block clicks */
+  z-index: 0; 
+  pointer-events: none; 
 }

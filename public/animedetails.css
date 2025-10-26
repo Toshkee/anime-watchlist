@@ -1,0 +1,30 @@
+.anime-poster {
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.anime-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.anime-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.anime-details p {
+    margin: 15px 0;
+    line-height: 1.6;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.anime-details strong {
+    color: #17d0f6;
+}
+

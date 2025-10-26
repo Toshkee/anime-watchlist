@@ -3,9 +3,10 @@
 <head>
   <title><%= anime.title %> Details</title>
   <link rel="stylesheet" href="/dashboard.css">
+  <link rel="stylesheet" href="/animedetails.css">
 </head>
 <body>
-  <nav>
+  <nav class="top-nav">
     <a href="/dashboard">Dashboard</a>
     <a href="/watchlist">My Watchlist</a>
     <a href="/logout">Logout</a>
@@ -13,12 +14,18 @@
 
   <div class="anime-details">
     <h1><%= anime.title %></h1>
-    <% if (anime.image) { %>
-      <img src="/assets/hxh.jpg/<%= anime.image %>" alt="<%= anime.title %>" style="width:300px;height:auto;">
-    <% } %>
-    <p><strong>Description:</strong> <%= anime.description %></p>
-    <p><strong>Genre:</strong> <%= anime.genre %></p>
-    <p><strong>Episodes:</strong> <%= anime.episodes %></p>
+    
+
+   
+<img 
+    src="/assets/anime_images/<%= anime.image || 'default.png' %>" 
+    alt="<%= anime.title %>"
+    class="anime-poster"
+    >
+
+    <p><strong>Description:</strong> <%= anime.description || 'No description available' %></p>
+    <p><strong>Genre:</strong> <%= anime.genre || 'Unknown' %></p>
+    <p><strong>Episodes:</strong> <%= anime.episodes || 'Unknown' %></p>
   </div>
 </body>
 </html>
