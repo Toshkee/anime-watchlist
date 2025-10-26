@@ -25,19 +25,20 @@
         <div class="anime-grid">
           <% myAnimes.forEach(anime=> { %>
             <div class="anime-card-wrapper">
-              <div class="anime-card">
-                <!-- ✅ Added image just like in dashboard -->
-                <img src="/assets/anime_images/<%= anime.image || 'default.png' %>"
-                  onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
 
-                <h3>
-                  <%= anime.title %>
-                </h3>
-                <p>Status: <%= anime.status %>
-                </p>
-                <p>Notes: <%= anime.notes || 'No notes yet' %>
-                </p>
-              </div>
+              <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
+                <div class="anime-card">
+                  <img src="/assets/anime_images/<%= anime.image || 'default.png' %>"
+                    onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
+                  <h3>
+                    <%= anime.title %>
+                  </h3>
+                  <p>Status: <%= anime.status %>
+                  </p>
+                  <p>Notes: <%= anime.notes || 'No notes yet' %>
+                  </p>
+                </div>
+              </a>
 
               <div class="card-buttons">
                 <button class="update-btn"
@@ -55,7 +56,7 @@
         <% } %>
   </div>
 
-  <!-- Modal -->
+
   <div id="updateModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
