@@ -49,22 +49,24 @@ app.get("/add", async (req, res) => {
 
 app.post("/add", async (req, res) => {
     if (!req.session.userId) return res.redirect("/login");
-    const { title, status, notes } = req.body;
+
+    const { title, description, genre, episodes } = req.body;
 
     try {
         await Anime.create({
             title,
-            status,
-            notes: notes || "",
+            description: description || "No description provided.",
+            genre: genre || "Unknown",
+            episodes: episodes || "Unknown",
             user: req.session.userId,
             isDefault: false,
-            forDashboard: true
+            forDashboard: true,
         });
 
         res.redirect("/dashboard");
     } catch (err) {
-        console.log(err);
-        res.send("Error adding anime.");
+        console.error("Error adding anime:", err);
+        res.status(500).send("Error adding anime.");
     }
 });
 
@@ -74,7 +76,7 @@ app.post("/delete/:id", async (req, res) => {
 
     try {
         await Anime.deleteOne({ _id: req.params.id, user: userId });
-        res.redirect("/watchlist");
+        res.redirect("/dashboard");
     } catch (err) {
         console.log(err);
         res.send("Error deleting anime.");

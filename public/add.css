@@ -84,8 +84,9 @@ nav a:hover {
 
 
 .add-anime-container input[name="title"],
-.add-anime-container select[name="status"],
-.add-anime-container textarea[name="notes"] {
+.add-anime-container textarea[name="description"],
+.add-anime-container input[name="genre"],
+.add-anime-container input[name="episodes"] {
   width: 100%;
   border-radius: 10px;
   border: 1px solid #555;
@@ -95,24 +96,11 @@ nav a:hover {
   box-sizing: border-box;
   outline: none;
   transition: 0.3s;
-}
-
-
-.add-anime-container input[name="title"] {
   padding: 12px;
   height: 45px;
 }
 
-.add-anime-container select[name="status"] {
-  padding: 10px;
-  height: 40px;
-}
 
-.add-anime-container textarea[name="notes"] {
-  padding: 15px;
-  min-height: 120px;
-  resize: vertical;
-}
 
 
 .add-anime-container input:focus,
@@ -151,12 +139,6 @@ nav a:hover {
     font-size: 24px;
   }
 
-  .add-anime-container input[name="title"],
-  .add-anime-container select[name="status"],
-  .add-anime-container textarea[name="notes"] {
-    font-size: 14px;
-  }
-
   .add-anime-container button {
     font-size: 14px;
     padding: 10px;
@@ -178,7 +160,7 @@ nav a:hover {
 
 .luffy2 {
   position: absolute;
-  bottom: -180px;
+  bottom: -170px;
   left: 50%;
   transform: translateX(-50%);
   width: 320px;
