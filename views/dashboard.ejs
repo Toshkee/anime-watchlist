@@ -30,7 +30,7 @@
         </a>
 
         <div class="card-buttons">
-          <% if (!anime.forDashboard || anime.isDefault) { %>
+          <% if (anime.forDashboard) { %>
             <form method="POST" action="/add-to-watchlist/<%= anime._id %>">
               <button type="submit" class="watchlist-btn">Add to My Watchlist</button>
             </form>
