@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title><%= anime.title %> Details</title>
+  <title>
+    <%= anime.title %> Details
+  </title>
   <link rel="stylesheet" href="/dashboard.css">
   <link rel="stylesheet" href="/animedetails.css">
 </head>
+
 <body>
   <nav class="top-nav">
     <a href="/dashboard">Dashboard</a>
@@ -13,23 +17,28 @@
   </nav>
 
   <div class="anime-details">
-    <h1><%= anime.title %></h1>
-    <img 
-      src="/assets/anime_images/<%= anime.image || 'default.png' %>"
-      alt="<%= anime.title %>"
-      class="anime-poster"
-    >
+    <h1>
+      <%= anime.title %>
+    </h1>
+    <img src="/assets/anime_images/<%= anime.image || 'default.png' %>" alt="<%= anime.title %>" class="anime-poster">
 
-    <p><strong>Description:</strong> <%= anime.description || 'No description available' %></p>
-    <p><strong>Genre:</strong> <%= anime.genre || 'Unknown' %></p>
-    <p><strong>Episodes:</strong> <%= anime.episodes || 'Unknown' %></p>
+    <p><strong>Description:</strong>
+      <%= anime.description || 'No description available' %>
+    </p>
+    <p><strong>Genre:</strong>
+      <%= anime.genre || 'Unknown' %>
+    </p>
+    <p><strong>Episodes:</strong>
+      <%= anime.episodes || 'Unknown' %>
+    </p>
 
 
     <% if (!anime.user) { %>
       <form method="POST" action="/add-to-watchlist/<%= anime._id %>" class="add-watchlist-form">
         <button type="submit" class="watchlist-btn">Add to My Watchlist</button>
       </form>
-    <% } %>
+      <% } %>
   </div>
 </body>
+
 </html>

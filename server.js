@@ -48,39 +48,13 @@ app.get("/add", async (req, res) => {
 });
 
 
-app.post("/add", upload.single("image"), async (req, res) => {
-    if (!req.session.userId) return res.redirect("/login");
-
-    const { title, description, genre, episodes } = req.body;
-
-
-    try {
-        await Anime.create({
-            title,
-            description: description || "No description provided.",
-            genre: genre || "Unknown",
-            episodes: episodes || "Unknown",
-            user: req.session.userId,
-            isDefault: false,
-            forDashboard: true,
-        });
-
-        res.redirect("/dashboard");
-    } catch (err) {
-        console.error("Error adding anime:", err);
-        res.status(500).send("Error adding anime.");
-
-        console.log(req.file, req.body);
-    }
-});
-
 app.post("/delete/:id", async (req, res) => {
     const userId = req.session.userId;
     if (!userId) return res.redirect("/login");
 
     try {
         await Anime.deleteOne({ _id: req.params.id, user: userId });
-        res.redirect("/dashboard");
+        res.redirect("/watchlist");
     } catch (err) {
         console.log(err);
         res.send("Error deleting anime.");
@@ -415,70 +389,64 @@ app.post("/add-to-watchlist/:id", async (req, res) => {
     }
 });
 
+
+
 app.get("/anime/:title", async (req, res) => {
     const title = decodeURIComponent(req.params.title);
 
-    const anime = await Anime.findOne({ title: title });
-    if (!anime) {
-        return res.status(404).send("Anime not found");
+    try {
+        const anime = await Anime.findOne({ title: title });
+        if (!anime) return res.status(404).send("Anime not found");
+
+
+        res.render("animeDetails", {
+            anime,
+            username: req.session.username
+        });
+    } catch (err) {
+        console.error("Error fetching anime details:", err);
+        res.status(500).send("Error loading anime details.");
     }
-
-
-    const imageMap = {
-        "One Piece": "onepiece.jpg",
-        "Hunter x Hunter": "hunterxhunter.jpg",
-        "Demon Slayer": "demonslayer.jpg",
-        "Naruto": "naruto.jpg",
-        "Monster": "monster.jpg",
-        "Black Clover": "blackclover.jpg",
-        "Bleach": "bleach.jpg",
-        "Dragon Ball": "dragonball.jpg",
-        "Code Geass": "codegeass.jpg",
-        "Neon Genesis Evangelion": "evangelion.jpg",
-        "Cowboy Bebop": "cowboybebop.jpg",
-        "Death Note": "deathnote.jpg",
-        "Berserk": "berserk.jpg",
-        "JoJo's Bizarre Adventure": "jojo.jpg",
-        "Attack on Titan": "aot.jpg",
-        "Vinland Saga": "vinlandsaga.jpg",
-        "Hajime no Ippo": "ippohajime.jpg",
-        "Jujutsu Kaisen": "jujutsukaisen.jpg",
-        "Haikyu": "haikyu.jpg",
-        "Pokemon": "pokemon.jpg"
-    };
-
-    const animeWithImage = {
-        ...anime._doc,
-        image: imageMap[title] || 'default.png'
-    };
-
-    res.render("animeDetails", {
-        anime: animeWithImage,
-        username: req.session.username
-    });
 });
 
+app.post("/add", upload.single("image"), async (req, res) => {
+    if (!req.session.userId) return res.redirect("/login");
 
-app.post('/add', upload.single('image'), async (req, res) => {
-  try{
-    console.log(req.body)
-  const { title , description, genre, episodes  } = req.body;
-  const uploadResult = await cloudinary.uploader.upload(req.file.path);
-   const newAnime = new Anime({
-      title,
-      description,
-      genre,
-      episodes,
-      image: uploadResult.secure_url
-    });
-    newProduct.save()
-    fs.unlinkSync(req.file.path);
-    res.redirect('/dashboard')
-  } catch(error){
-    console.error(error);
-    res.status(500).send('Errod adding anime');
-  }
+    const fs = require("fs");
+    const path = require("path");
+    const { title, description, genre, episodes } = req.body;
+
+    try {
+        let imageName = "default.png";
+
+        if (req.file) {
+            const targetPath = path.join(__dirname, "assets", "anime_images", req.file.originalname);
+
+
+            fs.renameSync(req.file.path, targetPath);
+
+
+            imageName = req.file.originalname;
+        }
+
+        await Anime.create({
+            title,
+            description: description || "No description provided.",
+            genre: genre || "Unknown",
+            episodes: episodes || "Unknown",
+            user: req.session.userId,
+            isDefault: false,
+            forDashboard: true,
+            image: imageName,
+        });
+
+        res.redirect("/dashboard");
+    } catch (err) {
+        console.error("❌ Error adding anime:", err);
+        res.status(500).send("Error adding anime.");
+    }
 });
+
 
 
 app.listen(3000, () => {

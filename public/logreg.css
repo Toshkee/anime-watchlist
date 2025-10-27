@@ -151,24 +151,28 @@ nav a:hover {
 }
 
 
-.gon {
-  position: fixed;
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
-  width: 220px;
+
+.zoro {
+  position: absolute;
+  top: 7%;
+  left: 55%;
+  transform: translateX(-50%) translateY(-60%);
+  width: 190px;
   height: auto;
   z-index: 0;
+  opacity: 0.95;
   pointer-events: none;
 }
 
-.killua {
-  position: fixed;
-  top: 50%;
-  right: 10%;
-  transform: translateY(-50%);
-  width: 220px;
+
+.luffyg5 {
+  position: absolute;
+  top: 7%;
+  left: 40%;
+  transform: translateX(-50%) translateY(-60%);
+  width: 140px;
   height: auto;
   z-index: 0;
+  opacity: 0.95;
   pointer-events: none;
 }
