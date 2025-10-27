@@ -6,29 +6,7 @@ dotenv.config();
 const session = require('express-session');
 const app = express();
 const path = require('path');
-const multer = require('multer');
-
-
-const upload = multer({
-    dest : multer.diskStorage("./public/uploads/"),
-    limits : { fileSize : 1 * 1024 * 1024 }
-})
-
-// const storage = multer.diskStorage({
-//   destination: './uploads/',
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
-// const upload = multer({ storage });
-
-// app.post('/upload', upload.single('image'), (req, res) => {
-//   if (!req.file) {
-//     return res.status(400).send('No file uploaded.');
-//   }
-//   console.log(req.file.filename);
-//   res.send('File uploaded: ' + req.file.filename);
-// });
+const upload = require('./config/multer');
 
 
 
@@ -74,7 +52,7 @@ app.post("/add", upload.single("image"), async (req, res) => {
     if (!req.session.userId) return res.redirect("/login");
 
     const { title, description, genre, episodes } = req.body;
-   
+
 
     try {
         await Anime.create({
@@ -480,6 +458,27 @@ app.get("/anime/:title", async (req, res) => {
     });
 });
 
+
+app.post('/add', upload.single('image'), async (req, res) => {
+  try{
+    console.log(req.body)
+  const { title , description, genre, episodes  } = req.body;
+  const uploadResult = await cloudinary.uploader.upload(req.file.path);
+   const newAnime = new Anime({
+      title,
+      description,
+      genre,
+      episodes,
+      image: uploadResult.secure_url
+    });
+    newProduct.save()
+    fs.unlinkSync(req.file.path);
+    res.redirect('/dashboard')
+  } catch(error){
+    console.error(error);
+    res.status(500).send('Errod adding anime');
+  }
+});
 
 
 app.listen(3000, () => {

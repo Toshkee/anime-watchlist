@@ -21,7 +21,7 @@
       <div class="anime-card-wrapper">
         <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
           <div class="anime-card">
-            <img src="/assets/anime_images/<%= anime.image || 'default.png' %>"
+            <img src="/assets/anime_images/<%= anime.image%>"
               onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
             <h3>
               <%= anime.title %>
