@@ -6,13 +6,36 @@ dotenv.config();
 const session = require('express-session');
 const app = express();
 const path = require('path');
+const multer = require('multer');
+
+
+const upload = multer({
+    dest : multer.diskStorage("./public/uploads/"),
+    limits : { fileSize : 1 * 1024 * 1024 }
+})
+
+// const storage = multer.diskStorage({
+//   destination: './uploads/',
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
+// const upload = multer({ storage });
+
+// app.post('/upload', upload.single('image'), (req, res) => {
+//   if (!req.file) {
+//     return res.status(400).send('No file uploaded.');
+//   }
+//   console.log(req.file.filename);
+//   res.send('File uploaded: ' + req.file.filename);
+// });
+
 
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
 
 
 
@@ -47,10 +70,11 @@ app.get("/add", async (req, res) => {
 });
 
 
-app.post("/add", async (req, res) => {
+app.post("/add", upload.single("image"), async (req, res) => {
     if (!req.session.userId) return res.redirect("/login");
 
     const { title, description, genre, episodes } = req.body;
+   
 
     try {
         await Anime.create({
@@ -67,6 +91,8 @@ app.post("/add", async (req, res) => {
     } catch (err) {
         console.error("Error adding anime:", err);
         res.status(500).send("Error adding anime.");
+
+        console.log(req.file, req.body);
     }
 });
 

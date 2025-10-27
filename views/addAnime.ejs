@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,49 +9,38 @@
 </head>
 
 <body>
-  <!-- Navbar -->
+
   <%- include('partials/navbar'); %>
 
-  <!-- Background images -->
-  <img src="/assets/luffy.png" alt="Luffy" class="luffy">
-  <img src="/assets/luffy2.png" alt="Luffy 2" class="luffy2">
 
-  <!-- Form container -->
-  <div class="add-anime-container">
-    <h1>Add New Anime</h1>
+    <img src="/assets/luffy.png" alt="Luffy" class="luffy">
+    <img src="/assets/luffy2.png" alt="Luffy 2" class="luffy2">
 
-    <form method="POST" action="/add">
-      <!-- Title -->
-      <input 
-        type="text" 
-        name="title" 
-        placeholder="Anime Title" 
-        required>
 
-      <!-- Description -->
-      <textarea 
-        name="description" 
-        placeholder="Write a short summary of the anime" 
-        required></textarea>
+    <div class="add-anime-container">
+      <h1>Add New Anime</h1>
 
-      <!-- Genre -->
-      <input 
-        type="text" 
-        name="genre" 
-        placeholder="Genre (e.g. Action, Adventure, Fantasy)" 
-        required>
+      <form method="POST" action="/add" enctype="multipart/form-data">
+        
 
-      <!-- Episodes -->
-      <input 
-        type="number" 
-        name="episodes" 
-        placeholder="Number of Episodes" 
-        min="1" 
-        required>
+        <input type="text" name="title" placeholder="Anime Title" required>
 
-      <!-- Submit -->
-      <button type="submit">Add Anime</button>
-    </form>
-  </div>
+
+        <textarea name="description" placeholder="Write a short summary of the anime" required></textarea>
+
+
+        <input type="text" name="genre" placeholder="Genre (e.g. Action, Adventure, Fantasy)" required>
+
+
+        <input type="number" name="episodes" placeholder="Number of Episodes" min="1" required>
+
+
+        <input type="file" name="image" id="image" accept="image/*">
+
+
+        <button type="submit">Add Anime</button>
+      </form>
+    </div>
 </body>
+
 </html>
