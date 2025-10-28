@@ -4,8 +4,9 @@
   "description": "A full-stack CRUD application for anime fans who want to organize their watchlist, track progress, and treasure their favorite series — just like the Straw Hat crew treasures their adventures!   Built using **Node.js**, **Express**, and **MongoDB**, with custom styling inspired by the vibrant world of anime.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "start": "node server.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
