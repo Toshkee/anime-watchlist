@@ -9,7 +9,7 @@ const defaultAnimesData = [
         },
         {
             title: "Hunter x Hunter",
-            image: "hunterxhunter.jpg",
+            image: "HunterxHunter.jpg",
             description:
                 "Set out on a gripping adventure with twelve-year-old Gon Freecss after he discovers that the father he believed dead is actually alive — and not only alive, but a legendary “Hunter,” an elite adventurer licensed to take on the world’s greatest quests. Determined to follow in his father’s footsteps, Gon embarks on the arduous Hunter Exam, forging powerful friendships with Killua, Kurapika and Leorio while navigating deadly trials, nefarious organizations and a mysterious power known as Nen. Built on heart-pounding battles, moral dilemmas and emotional growth, the series pushes beyond typical shōnen fare to explore ambition, sacrifice and the price of strength.",
             genre: "Adventure, Fantasy, Action",
