@@ -7,13 +7,13 @@ const session = require('express-session');
 const app = express();
 const path = require('path');
 
-app.get('/', (req, res) => {
-  res.send('index');
-});
+// app.get('/', (req, res) => {
+//   res.send('index');
+// });
 
-app.post('/api/data', (req, res) => {
-  res.send('POST request received!');
-});
+// app.post('/api/data', (req, res) => {
+//   res.send('POST request received!');
+// });
 
 
 
