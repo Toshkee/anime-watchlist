@@ -10,6 +10,11 @@ const path = require('path');
 
 const userController = require('./controllers/userController');
 const animeController = require('./controllers/animeController');
+
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
   
 
 

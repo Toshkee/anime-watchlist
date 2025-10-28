@@ -219,8 +219,3 @@ router.post("/add", upload.single("image"), async (req, res) => {
 });
 
 module.exports = router;
-
-router.get("/", (req, res) => {
-  console.log("Reached homepage route");
-  res.render("index");
-});
