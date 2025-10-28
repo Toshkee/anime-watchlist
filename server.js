@@ -10,18 +10,20 @@ const path = require('path');
 
 const userController = require('./controllers/userController');
 const animeController = require('./controllers/animeController');
+  
+
+app.set('views', path.join(__dirname, 'views'));
 
 
 app.get('/', (req, res) => {
   res.render('index');
 });
-  
-
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
 
 
 
