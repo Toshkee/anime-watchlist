@@ -1,47 +1,68 @@
-# ☠️ Anime Watchlist App — “Set Sail on Your Anime Journey!”
+## ANIME WATCHLIST ##
 
-A full-stack CRUD application for anime fans who want to organize their watchlist, track progress, and treasure their favorite series — just like the Straw Hat crew treasures their adventures!  
-Built using **Node.js**, **Express**, and **MongoDB**, with custom styling inspired by the vibrant world of anime.
+Anime Watchlist is a full-stack CRUD web application where users can browse, add, and manage their favorite anime series.
+It lets you explore a curated list of popular animes, add your own custom entries with images, and organize them into your personal watchlist.
 
----
+⸻
 
-## 🎯 Project Overview
+##  Features
 
-This app lets users create their own anime collection — add shows they’re watching, mark completed series, rate them, and write notes about each one.  
-It’s designed as a practical full-stack CRUD project to demonstrate **backend development**, **API design**, and **data persistence** skills using JavaScript technologies.
+✅ User Authentication — Register and log in securely.
+✅ Dashboard — Explore a collection of default anime titles with detailed info and posters.
+✅ Add New Anime — Create your own anime entries with title, description, genre, episodes, and custom image uploads.
+✅ Image Upload via Cloudinary — Upload posters that are stored safely in the cloud.
+✅ Watchlist — Add animes from the dashboard to your personal watchlist.
+✅ Anime Details Page — View full details of any anime in a clean, dedicated page.
+✅ Delete Functionality — Remove your own animes from the dashboard anytime.
+✅ Responsive Design — Works beautifully across desktops and mobile devices.
+✅ Session Management — Keeps users logged in securely using Express sessions.
 
----
+⸻
 
-## 🚀 Features
+## 🧠 Tech Stack
 
-### 🧭 Core Features
-- 🔐 **User Authentication** (Register/Login using JWT)
-- ➕ **Add** anime to your personal watchlist
-- 📜 **Read** your entire anime collection
-- ✏️ **Update** details (status, rating, or notes)
-- ❌ **Delete** anime from your list
--   **Create** - An anime that is missing
+Frontend
+	•	HTML5
+	•	CSS3
+	•	EJS (Embedded JavaScript Templates)
 
-🌅 Future Enhancements
-	•	⭐ Add a “Favorites” or “Top 10” list.
-	•	🕒 Track episodes watched with a progress bar.
-	•	🔔 Add notifications or reminders for upcoming episodes.
-	
----
+Backend
+	•	Node.js
+	•	Express.js
+	•	Mongoose (for MongoDB)
+	•	Multer (for image uploads)
+	•	Cloudinary SDK (for cloud image storage)
+	•	bcrypt.js (for password hashing)
+	•	express-session (for authentication sessions)
+	•	dotenv (for environment variable management)
 
-## 🧩 Tech Stack
+Database
+	•	MongoDB Atlas
 
-| Category | Technology |
-|-----------|-------------|
-| **Language** | JavaScript (ES6+) |
-| **Backend Framework** | Node.js + Express |
-| **Database** | MongoDB + Mongoose |
-| **Authentication** | JSON Web Token (JWT) + bcrypt |
-| **Environment Management** | dotenv |
-| **Dev Tools** | nodemon |
-| ** HTML, CSS, JavaScript  |
 
----
+  ## 💡 How to Use
+	1.	Register for an account or log in if you already have one.
+	2.	Explore the Dashboard — it includes popular animes by default.
+	3.	Click Add New Anime to create your own anime entry with a custom image.
+	4.	Press Add to My Watchlist on any anime card to include it in your personal list.
+	5.	Go to My Watchlist to see your saved shows or update their notes/status.
+	6.	You can also delete your custom anime entries anytime.
+
+  ## 💅 Styling & UI
+
+Anime Watchlist features a dark neon-themed interface inspired by anime aesthetics —
+animated gradient backgrounds, glowing buttons, and character gifs for visual personality.
+Everything is responsive and visually clean, ensuring smooth navigation and readability.
+
+⸻
+
+## 🧩 Possible Future Improvements
+	•	🔍 Search & filter functionality
+	•	⭐ Ratings system
+	•	🖼️ Drag-and-drop image uploads
+	•	📱 Further mobile optimization
+	•	🧾 Sorting and categorization by genre or status
+
 
 ##  🗂️ Credits
 
@@ -49,4 +70,4 @@ It’s designed as a practical full-stack CRUD project to demonstrate **backend 
   Email: tosiicp@gmail.com
   GitHub: https://github.com/Toshkee
  
- ![Screenshot of the idea](/assets/Screenshot%202025-10-24%20at%2022.39.59.png)
+ ![Screenshot of the idea](/assets/anime-watchlist.gif)

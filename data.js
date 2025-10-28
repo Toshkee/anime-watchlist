@@ -160,3 +160,5 @@ const defaultAnimesData = [
             episodes: "1200+"
         }
     ];
+
+    module.exports = defaultAnimesData;

@@ -2,6 +2,7 @@ const express = require('express');
 const Anime = require('../models/Anime');
 const upload = require('../config/multer');
 const router = express.Router();
+const defaultAnimesData = require('../data.js');
 
 
 
@@ -61,7 +62,7 @@ router.post('/update/:id', async (req, res) => {
 });
 
 
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", async (req, res) => {  
     const userId = req.session.userId;
     if (!userId) return res.redirect("/login");
 
