@@ -46,13 +46,4 @@ router.get("/logout", (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
-  res.send('Hello from my Heroku app!');
-});
-
-router.post('/api/data', (req, res) => {
-  res.send('POST request received!');
-});
-
-
 module.exports = router;

@@ -7,6 +7,14 @@ const session = require('express-session');
 const app = express();
 const path = require('path');
 
+app.get('/', (req, res) => {
+  res.send('Hello from my Heroku app!');
+});
+
+app.post('/api/data', (req, res) => {
+  res.send('POST request received!');
+});
+
 
 
 const userController = require('./controllers/userController');
