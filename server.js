@@ -442,7 +442,7 @@ app.post("/add", upload.single("image"), async (req, res) => {
 
         res.redirect("/dashboard");
     } catch (err) {
-        console.error("❌ Error adding anime:", err);
+        console.error("Error adding anime:", err);
         res.status(500).send("Error adding anime.");
     }
 });
