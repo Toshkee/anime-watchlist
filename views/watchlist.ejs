@@ -25,10 +25,10 @@
         <div class="anime-grid">
           <% myAnimes.forEach(anime=> { %>
             <div class="anime-card-wrapper">
-
-              <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
+              <a href="/anime/<%= anime._id %>" class="anime-link">
                 <div class="anime-card">
-                  <img src="/assets/anime_images/<%= anime.image || 'default.png' %>"
+                  <img
+                    src="<%= (anime.image && anime.image.startsWith('http')) ? anime.image : ('/assets/anime_images/' + (anime.image || 'default.png')) %>"
                     onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
                   <h3>
                     <%= anime.title %>

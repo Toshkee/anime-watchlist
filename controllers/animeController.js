@@ -163,13 +163,10 @@ router.post("/add-to-watchlist/:id", async (req, res) => {
 
 
 
-router.get("/anime/:title", async (req, res) => {
-    const title = decodeURIComponent(req.params.title);
-
+router.get("/anime/:id", async (req, res) => {
     try {
-        const anime = await Anime.findOne({ title: title });
+        const anime = await Anime.findById(req.params.id);
         if (!anime) return res.status(404).send("Anime not found");
-
 
         res.render("animeDetails", {
             anime,

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Dashboard</title>
   <link rel="stylesheet" href="/dashboard.css">
 </head>
-
 <body>
   <nav class="top-nav">
     <a href="/dashboard">Dashboard</a>
@@ -17,15 +15,16 @@
   <h2>Welcome, <%= username %> 👋</h2>
 
   <div class="anime-grid">
-    <% animes.forEach(anime=> { %>
+    <% animes.forEach(anime => { %>
       <div class="anime-card-wrapper">
-        <a href="/anime/<%= encodeURIComponent(anime.title) %>" class="anime-link">
+        <a href="/anime/<%= anime._id %>" class="anime-link">
           <div class="anime-card">
-            <img src="/assets/anime_images/<%= anime.image%>"
-              onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
-            <h3>
-              <%= anime.title %>
-            </h3>
+            <img
+              src="/assets/anime_images/<%= anime.image %>"
+              onerror="this.onerror=null; this.src='/assets/anime_images/default.png';"
+              alt="<%= anime.title %>"
+            >
+            <h3><%= anime.title %></h3>
           </div>
         </a>
 
@@ -34,17 +33,16 @@
             <form method="POST" action="/add-to-watchlist/<%= anime._id %>">
               <button type="submit" class="watchlist-btn">Add to My Watchlist</button>
             </form>
-            <% } %>
+          <% } %>
 
-              <% if (anime.forDashboard && !anime.isDefault) { %>
-                <form method="POST" action="/delete/<%= anime._id %>">
-                  <button type="submit" class="watchlist-btn">Delete</button>
-                </form>
-                <% } %>
+          <% if (anime.forDashboard && !anime.isDefault) { %>
+            <form method="POST" action="/delete/<%= anime._id %>">
+              <button type="submit" class="watchlist-btn">Delete</button>
+            </form>
+          <% } %>
         </div>
       </div>
-      <% }) %>
+    <% }) %>
   </div>
 </body>
-
 </html>
