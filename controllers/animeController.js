@@ -163,56 +163,52 @@ router.post("/add-to-watchlist/:id", async (req, res) => {
 
 
 
-router.get("/anime/:id", async (req, res) => {
-    try {
-        const anime = await Anime.findById(req.params.id);
-        if (!anime) return res.status(404).send("Anime not found");
+router.post("/add", upload.single("image"), async (req, res) => {
+  if (!req.session.userId) return res.redirect("/login");
 
-        res.render("animeDetails", {
-            anime,
-            username: req.session.username
-        });
-    } catch (err) {
-        console.error("Error fetching anime details:", err);
-        res.status(500).send("Error loading anime details.");
+  const { title, description, genre, episodes } = req.body;
+
+  try {
+    let imageUrl = "https://res.cloudinary.com/demo/image/upload/vdefault.png";
+
+    if (req.file) {
+     
+      imageUrl = req.file.path || req.file.secure_url || imageUrl;
+      console.log("✅ Uploaded to Cloudinary:", imageUrl);
     }
+
+    await Anime.create({
+      title,
+      description: description || "No description provided.",
+      genre: genre || "Unknown",
+      episodes: episodes || "Unknown",
+      user: req.session.userId,
+      isDefault: false,
+      forDashboard: true,
+      image: imageUrl,
+    });
+
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.error("Error adding anime:", err);
+    res.status(500).send("Error adding anime.");
+  }
 });
 
-router.post("/add", upload.single("image"), async (req, res) => {
-    if (!req.session.userId) return res.redirect("/login");
 
-    const fs = require("fs");
-    const path = require("path");
-    const { title, description, genre, episodes } = req.body;
+router.get("/anime/:id", async (req, res) => {
+  try {
+    const anime = await Anime.findById(req.params.id);
+    if (!anime) return res.status(404).send("Anime not found");
 
-    try {
-        let imageName = "default.png";
-
-        if (req.file) {
-            const targetPath = path.join(__dirname, "assets", "anime_images", req.file.originalname);
-            fs.mkdirSync(path.dirname(targetPath), { recursive: true });
-            fs.renameSync(req.file.path, targetPath);
-
-
-            imageName = req.file.originalname;
-        }
-
-        await Anime.create({
-            title,
-            description: description || "No description provided.",
-            genre: genre || "Unknown",
-            episodes: episodes || "Unknown",
-            user: req.session.userId,
-            isDefault: false,
-            forDashboard: true,
-            image: imageName,
-        });
-
-        res.redirect("/dashboard");
-    } catch (err) {
-        console.error("Error adding anime:", err);
-        res.status(500).send("Error adding anime.");
-    }
+    res.render("animeDetails", {
+      anime,
+      username: req.session.username
+    });
+  } catch (err) {
+    console.error("Error fetching anime details:", err);
+    res.status(500).send("Error loading anime details.");
+  }
 });
 
 module.exports = router;

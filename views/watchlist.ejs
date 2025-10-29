@@ -27,9 +27,10 @@
             <div class="anime-card-wrapper">
               <a href="/anime/<%= anime._id %>" class="anime-link">
                 <div class="anime-card">
-                  <img
-                    src="<%= (anime.image && anime.image.startsWith('http')) ? anime.image : ('/assets/anime_images/' + (anime.image || 'default.png')) %>"
-                    onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" alt="<%= anime.title %>">
+                  <img src="<%= anime.image && anime.image.startsWith('http')
+    ? anime.image
+    : '/assets/anime_images/' + (anime.image || 'default.png') %>" alt="<%= anime.title %>"
+                    onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" />
                   <h3>
                     <%= anime.title %>
                   </h3>

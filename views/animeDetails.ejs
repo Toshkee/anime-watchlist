@@ -20,7 +20,10 @@
     <h1>
       <%= anime.title %>
     </h1>
-    <img src="/assets/anime_images/<%= anime.image || 'default.png' %>" alt="<%= anime.title %>" class="anime-poster">
+    <img src="<%= anime.image && anime.image.startsWith('http')
+    ? anime.image
+    : '/assets/anime_images/' + (anime.image || 'default.png') %>" alt="<%= anime.title %>" class="anime-poster"
+      onerror="this.onerror=null; this.src='/assets/anime_images/default.png';" />
 
     <p><strong>Description:</strong>
       <%= anime.description || 'No description available' %>
