@@ -69,5 +69,9 @@ Everything is responsive and visually clean, ensuring smooth navigation and read
   Name: Pavle Tosic
   Email: tosiicp@gmail.com
   GitHub: https://github.com/Toshkee
+
+  ## Deployment link
+
+  https://animee-watchlist-app-724b6a827c81.herokuapp.com/
  
  ![Screenshot of the idea](/assets/anime-watchlist.gif)
