@@ -1,0 +1,183 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Midnight Cinema — a calm, near-black, poster-forward dark theme.
+  Chrome stays strictly neutral; color comes from the anime art itself
+  (a per-title extracted accent applied only on detail heroes).
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Status workflow colors (Watching / Completed / Plan / Hold / Dropped / Rewatching) */
+  --color-watching: var(--status-watching);
+  --color-completed: var(--status-completed);
+  --color-plan: var(--status-plan);
+  --color-hold: var(--status-hold);
+  --color-dropped: var(--status-dropped);
+  --color-rewatching: var(--status-rewatching);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root,
+.dark {
+  --radius: 0.875rem;
+
+  /* Graphite surface ramp — never pure black */
+  --background: #0b0c10;
+  --foreground: #f4f4f7;
+  --card: #14151b;
+  --card-foreground: #f4f4f7;
+  --popover: #1b1d25;
+  --popover-foreground: #f4f4f7;
+
+  /* Signature accent — periwinkle-violet (one accent, used sparingly) */
+  --primary: #7c6cf0;
+  --primary-foreground: #0b0c10;
+
+  --secondary: #1b1d25;
+  --secondary-foreground: #f4f4f7;
+
+  --muted: #14151b;
+  --muted-foreground: #a8abb5;
+
+  --accent: #23252f;
+  --accent-foreground: #f4f4f7;
+
+  --destructive: #f2647b;
+
+  /* Hairline borders carry elevation instead of heavy shadows */
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #7c6cf0;
+
+  /* Status colors — desaturated to sit calmly on dark */
+  --status-watching: #4fd1c5;
+  --status-completed: #7c6cf0;
+  --status-plan: #a8abb5;
+  --status-hold: #f5b14c;
+  --status-dropped: #f2647b;
+  --status-rewatching: #6e8bf0;
+
+  /* Charts (stats dashboard) */
+  --chart-1: #7c6cf0;
+  --chart-2: #4fd1c5;
+  --chart-3: #f5b14c;
+  --chart-4: #f2647b;
+  --chart-5: #6e8bf0;
+
+  --sidebar: #0e0f14;
+  --sidebar-foreground: #f4f4f7;
+  --sidebar-primary: #7c6cf0;
+  --sidebar-primary-foreground: #0b0c10;
+  --sidebar-accent: #1b1d25;
+  --sidebar-accent-foreground: #f4f4f7;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #7c6cf0;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* A single, static, very subtle accent glow at the top — no animated gradients */
+    background-image: radial-gradient(
+      120rem 50rem at 50% -28rem,
+      rgba(124, 108, 240, 0.1),
+      transparent 60%
+    );
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Tabular, aligned numerals for scores / episode counts / runtime */
+  .tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+@layer utilities {
+  /* Poster aspect ratio + crop discipline */
+  .poster {
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

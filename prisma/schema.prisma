@@ -1,0 +1,126 @@
+// Prisma schema for Senpai.
+// Relational watchlist model — replaces v1's overloaded boolean flags and
+// duplicated documents. A watchlist entry references a cached Title by its
+// AniList id (one source of truth, no drift).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Pooled connection (PgBouncer on Neon) for serverless query traffic.
+  url = env("DATABASE_URL")
+  // Direct connection for migrations (PgBouncer can't run migration statements).
+  // Locally both point at the same DB; on Neon they're the pooled vs. direct host.
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Auth.js (NextAuth) models
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+
+  // Credentials login
+  username     String? @unique
+  passwordHash String?
+
+  createdAt DateTime @default(now())
+
+  accounts  Account[]
+  sessions  Session[]
+  watchlist WatchlistEntry[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Domain models
+// ---------------------------------------------------------------------------
+
+enum WatchStatus {
+  WATCHING
+  COMPLETED
+  PLAN_TO_WATCH
+  ON_HOLD
+  DROPPED
+  REWATCHING
+}
+
+/// Cached AniList metadata, keyed by the AniList media id.
+model Title {
+  id           Int      @id // AniList media id
+  title        String
+  coverImage   String?
+  coverColor   String?
+  bannerImage  String?
+  format       String?
+  episodes     Int?
+  duration     Int? // minutes per episode
+  averageScore Int?
+  seasonYear   Int?
+  genres       String[]
+  updatedAt    DateTime @updatedAt
+
+  entries WatchlistEntry[]
+}
+
+model WatchlistEntry {
+  id String @id @default(cuid())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  title   Title @relation(fields: [titleId], references: [id], onDelete: Cascade)
+  titleId Int
+
+  status   WatchStatus @default(PLAN_TO_WATCH)
+  progress Int         @default(0) // episodes watched
+  rating   Int? // 1–10
+  notes    String?     @db.Text
+
+  startedAt  DateTime?
+  finishedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([userId, titleId])
+  @@index([userId, status])
+}
