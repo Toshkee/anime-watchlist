@@ -46,7 +46,7 @@ export default async function AnimeDetailPage({ params }: DetailPageProps) {
     ? await getEntry(session.user.id, animeId)
     : null;
 
-  const accent = anime.coverColor ?? "#7c6cf0";
+  const accent = anime.coverColor ?? "#f5414f";
   const synopsis = stripHtml(anime.description ?? "");
   const countdown = nextAiringLabel(anime.nextAiringEpisode);
 

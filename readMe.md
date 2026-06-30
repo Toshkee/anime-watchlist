@@ -1,11 +1,11 @@
-# 🎬 Senpai — a modern anime tracker
+# 🎬 Arc — a modern anime tracker
 
 [![CI](https://github.com/Toshkee/anime-watchlist/actions/workflows/ci.yml/badge.svg)](https://github.com/Toshkee/anime-watchlist/actions/workflows/ci.yml)
 [![E2E](https://github.com/Toshkee/anime-watchlist/actions/workflows/e2e.yml/badge.svg)](https://github.com/Toshkee/anime-watchlist/actions/workflows/e2e.yml)
 
 > Search 500,000+ anime, build your watchlist, track episode progress, rate what you watch, and turn your taste into stats.
 
-Senpai is a full rebuild of an earlier General Assembly bootcamp project. The original was a server-rendered **Express + EJS + MongoDB** CRUD app with a hardcoded catalog. This version is a typed, tested, API-driven product built on a modern stack — kept as a **before/after engineering case study**.
+Arc is a full rebuild of an earlier General Assembly bootcamp project. The original was a server-rendered **Express + EJS + MongoDB** CRUD app with a hardcoded catalog. This version is a typed, tested, API-driven product built on a modern stack — kept as a **before/after engineering case study**.
 
 **Live demo:** _coming soon (Vercel)_ · **Original (v1):** preserved on the [`legacy-express`](https://github.com/Toshkee/anime-watchlist/tree/legacy-express) branch.
 
@@ -27,8 +27,7 @@ Senpai is a full rebuild of an earlier General Assembly bootcamp project. The or
 
 ## 🚀 Features
 
-- 🔎 **Live search** over AniList with URL-driven filters (genre, format, year, sort) — shareable and back-button correct
-- 🔥 **Discover** — trending now + popular this season, streamed via React Suspense
+- 🔎 **Browse** — one surface that pairs curated rows (trending, popular this season, top of all time) with live AniList search and URL-driven filters (genre, format, year, sort); streamed via React Suspense, shareable, and back-button correct
 - 🎞️ **Cinematic detail pages** — full-bleed banner with a per-title **extracted-color hero**, synopsis, tags, studios, score, and next-episode countdown
 - 🔐 **Auth.js sign-in** — credentials (bcrypt) + optional OAuth, JWT sessions, route protection via proxy/middleware
 - ✅ **Watchlist** with a status workflow (Watching / Completed / Plan / On Hold / Dropped / Rewatching), episode progress, and ratings — with **optimistic UI**
@@ -60,8 +59,8 @@ Senpai is a full rebuild of an earlier General Assembly bootcamp project. The or
 ```
 src/
   app/                 # routes (App Router)
-    page.tsx           #   home / discover
-    search/            #   filtered search
+    page.tsx           #   browse — curated rows + live search
+    search/            #   legacy route → redirects to /
     anime/[id]/        #   cinematic detail page
     library/           #   per-user watchlist (auth-guarded)
     stats/             #   stats dashboard (auth-guarded)

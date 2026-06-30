@@ -26,12 +26,12 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Senpai — Track the anime you love",
-    template: "%s · Senpai",
+    default: "Arc — Track the anime you love",
+    template: "%s · Arc",
   },
   description:
     "A modern anime tracker: search 500,000+ titles, track episode progress, rate what you watch, and see your stats come to life.",
-  metadataBase: new URL("https://senpai.app"),
+  metadataBase: new URL("https://arc-anime.vercel.app"),
 };
 
 export default function RootLayout({

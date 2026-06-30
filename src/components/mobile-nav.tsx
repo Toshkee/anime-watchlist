@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LogOut, Menu, X } from "lucide-react";
 
 import { signOutAction } from "@/lib/actions/auth";
@@ -16,6 +17,7 @@ export function MobileNav({
   user: { name?: string | null } | null;
 }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="sm:hidden">
@@ -40,16 +42,27 @@ export function MobileNav({
           />
           <div className="border-border bg-background/95 absolute inset-x-0 top-full z-50 border-b p-4 backdrop-blur-xl">
             <nav className="flex flex-col gap-1">
-              {items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="hover:bg-muted rounded-md px-3 py-2.5 text-sm transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {items.map((item) => {
+                const active =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(item.href);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "rounded-md px-3 py-2.5 text-sm transition-colors",
+                      active ? "bg-primary/10 text-primary" : "hover:bg-muted",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
 
             <div className="border-border mt-3 border-t pt-3">

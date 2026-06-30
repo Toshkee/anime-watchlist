@@ -17,7 +17,7 @@ test("a new user can register, find an anime, and track it", async ({
   await expect(page).toHaveURL(/\/library/);
 
   // Search AniList and open the first result, remembering which title it is.
-  await page.goto("/search?q=Frieren");
+  await page.goto("/?q=Frieren");
   const firstResult = page.locator('a[href^="/anime/"]').first();
   await expect(firstResult).toBeVisible();
   const href = await firstResult.getAttribute("href");

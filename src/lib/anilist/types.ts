@@ -87,7 +87,7 @@ export interface AnimeSummary {
   titleEnglish: string | null;
   titleNative: string | null;
   coverImage: string | null;
-  /** AniList-extracted dominant color of the cover, e.g. "#7c6cf0". Our per-title accent. */
+  /** AniList-extracted dominant color of the cover, e.g. "#f5414f". Our per-title accent. */
   coverColor: string | null;
   bannerImage: string | null;
   format: AnimeFormat | null;

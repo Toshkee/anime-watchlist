@@ -130,8 +130,8 @@ function EmptyLibrary() {
       <p className="text-muted-foreground mx-auto mt-2 max-w-sm text-sm">
         Find something to watch and add it to start tracking your progress.
       </p>
-      <Link href="/search" className={`${buttonVariants()} mt-6 h-10 px-5`}>
-        Discover anime
+      <Link href="/" className={`${buttonVariants()} mt-6 h-10 px-5`}>
+        Browse anime
       </Link>
     </div>
   );
