@@ -11,7 +11,7 @@
 
 Arc is a full rebuild of an earlier General Assembly bootcamp project. The original was a server-rendered **Express + EJS + MongoDB** CRUD app with a hardcoded catalog. This version is a typed, tested, API-driven product built on a modern stack — kept as a **before/after engineering case study**.
 
-**Live demo:** _coming soon (Vercel)_ · **Original (v1):** preserved on the [`legacy-express`](https://github.com/Toshkee/anime-watchlist/tree/legacy-express) branch.
+**Live demo:** **[arc-anime.vercel.app](https://arc-anime.vercel.app)** · **Original (v1):** preserved on the [`legacy-express`](https://github.com/Toshkee/anime-watchlist/tree/legacy-express) branch.
 
 ---
 
@@ -63,7 +63,6 @@ Arc is a full rebuild of an earlier General Assembly bootcamp project. The origi
 
 **On the roadmap**
 
-- 🌐 Live Vercel demo (Neon Postgres)
 - 🗂️ Jikan/MyAnimeList fallback provider
 
 ---
