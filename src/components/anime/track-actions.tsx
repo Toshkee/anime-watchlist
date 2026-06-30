@@ -13,17 +13,25 @@ import {
 } from "@/lib/actions/watchlist";
 import { WATCH_STATUS_LABEL, WATCH_STATUS_ORDER } from "@/lib/watch-status";
 import { Button } from "@/components/ui/button";
+import { EpisodeStepper } from "./episode-stepper";
+import { RatingControl } from "./rating-control";
 
 export function TrackActions({
   animeId,
   title,
   isAuthed,
   initialStatus,
+  progress,
+  rating,
+  episodes,
 }: {
   animeId: number;
   title: string;
   isAuthed: boolean;
   initialStatus: WatchStatus | null;
+  progress: number;
+  rating: number | null;
+  episodes: number | null;
 }) {
   const [status, setStatus] = useState<WatchStatus | null>(initialStatus);
   const [pending, startTransition] = useTransition();
@@ -83,35 +91,57 @@ export function TrackActions({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <span className="border-primary/30 bg-primary/10 text-primary inline-flex h-11 items-center gap-2 rounded-lg border px-3 text-sm font-medium">
-        <Check className="size-4" />
-        In your library
-      </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="border-primary/30 bg-primary/10 text-primary inline-flex h-11 items-center gap-2 rounded-lg border px-3 text-sm font-medium">
+          <Check className="size-4" />
+          In your library
+        </span>
 
-      <select
-        aria-label="Watch status"
-        value={status}
-        disabled={pending}
-        onChange={(e) => changeStatus(e.target.value as WatchStatus)}
-        className="border-border bg-secondary focus-visible:border-ring focus-visible:ring-ring/40 h-11 rounded-lg border px-3 text-sm outline-none focus-visible:ring-3"
-      >
-        {WATCH_STATUS_ORDER.map((s) => (
-          <option key={s} value={s}>
-            {WATCH_STATUS_LABEL[s]}
-          </option>
-        ))}
-      </select>
+        <select
+          aria-label="Watch status"
+          value={status}
+          disabled={pending}
+          onChange={(e) => changeStatus(e.target.value as WatchStatus)}
+          className="border-border bg-secondary focus-visible:border-ring focus-visible:ring-ring/40 h-11 rounded-lg border px-3 text-sm outline-none focus-visible:ring-3"
+        >
+          {WATCH_STATUS_ORDER.map((s) => (
+            <option key={s} value={s}>
+              {WATCH_STATUS_LABEL[s]}
+            </option>
+          ))}
+        </select>
 
-      <Button
-        variant="secondary"
-        className="h-11 px-4"
-        disabled={pending}
-        onClick={remove}
-      >
-        <Trash2 className="size-4" />
-        Remove
-      </Button>
+        <Button
+          variant="secondary"
+          className="h-11 px-4"
+          disabled={pending}
+          onClick={remove}
+        >
+          <Trash2 className="size-4" />
+          Remove
+        </Button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+            Episodes
+          </span>
+          <EpisodeStepper
+            titleId={animeId}
+            progress={progress}
+            episodes={episodes}
+            size="md"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+            Your rating
+          </span>
+          <RatingControl titleId={animeId} rating={rating} size="md" />
+        </div>
+      </div>
     </div>
   );
 }

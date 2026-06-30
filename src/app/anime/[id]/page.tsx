@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { getAnimeDetail } from "@/lib/anilist";
 import { getEntry } from "@/lib/watchlist";
 import {
+  availableEpisodes,
   episodesLabel,
   formatLabel,
   formatScore,
@@ -169,6 +170,12 @@ export default async function AnimeDetailPage({ params }: DetailPageProps) {
                 title={anime.title}
                 isAuthed={!!session?.user}
                 initialStatus={entry?.status ?? null}
+                progress={entry?.progress ?? 0}
+                rating={entry?.rating ?? null}
+                episodes={availableEpisodes(
+                  anime.episodes,
+                  anime.nextAiringEpisode,
+                )}
               />
             </div>
           </div>
