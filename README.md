@@ -5,9 +5,34 @@
 
 > Search 500,000+ anime, build your watchlist, track episode progress, rate what you watch, and turn your taste into stats.
 
+<p align="center">
+  <img src="docs/arc-demo.gif" alt="Browsing Arc and opening a title page" width="100%" />
+</p>
+
 Arc is a full rebuild of an earlier General Assembly bootcamp project. The original was a server-rendered **Express + EJS + MongoDB** CRUD app with a hardcoded catalog. This version is a typed, tested, API-driven product built on a modern stack — kept as a **before/after engineering case study**.
 
 **Live demo:** _coming soon (Vercel)_ · **Original (v1):** preserved on the [`legacy-express`](https://github.com/Toshkee/anime-watchlist/tree/legacy-express) branch.
+
+---
+
+## 📸 A look around
+
+<p align="center">
+  <img src="docs/browse.png" alt="Browse — curated rows and live AniList search" width="100%" />
+</p>
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/detail.png" alt="Cinematic detail page" /><br />
+      <sub><b>Cinematic detail page</b> — full-bleed banner, per-title extracted-color hero, synopsis, studios, and a live next-episode countdown.</sub>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/stats.png" alt="Personal stats dashboard" /><br />
+      <sub><b>Personal stats dashboard</b> — episodes &amp; hours watched, mean rating, status breakdown, score distribution, and genre mix.</sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -101,6 +126,13 @@ npm run dev                   # http://localhost:3000
 ```
 
 Search and browsing work with no account; the watchlist and stats need a signed-in user.
+
+Want a populated `/library` and `/stats` to click around? Seed a demo account
+(`tester` / `password123`) with a varied watchlist:
+
+```bash
+node scripts/smoke.mjs
+```
 
 **Scripts:** `dev` · `build` · `start` · `lint` · `typecheck` · `format` · `test` · `test:e2e`
 
