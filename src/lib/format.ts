@@ -45,6 +45,23 @@ export function episodesLabel(episodes: number | null): string {
   return `${episodes} ep${episodes === 1 ? "" : "s"}`;
 }
 
+/**
+ * How many episodes actually exist to watch right now — the upper bound for
+ * progress. Finished shows report a real `episodes` total. Ongoing shows report
+ * `null`, so we fall back to the latest *aired* episode (one before the next
+ * airing). Returns null only when neither is known (e.g. unannounced shows).
+ */
+export function availableEpisodes(
+  episodes: number | null,
+  nextAiringEpisode: { episode: number } | null | undefined,
+): number | null {
+  if (episodes != null) return episodes;
+  if (nextAiringEpisode && nextAiringEpisode.episode > 1) {
+    return nextAiringEpisode.episode - 1;
+  }
+  return null;
+}
+
 /** Compact meta line, e.g. "TV · 2021 · 24 eps". */
 export function metaLine(
   parts: Array<string | number | null | undefined>,

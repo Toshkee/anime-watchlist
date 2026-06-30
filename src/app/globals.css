@@ -78,9 +78,9 @@
   --popover: #1b1d25;
   --popover-foreground: #f4f4f7;
 
-  /* Signature accent — periwinkle-violet (one accent, used sparingly) */
-  --primary: #7c6cf0;
-  --primary-foreground: #0b0c10;
+  /* Signature accent — cinema red (one accent, used sparingly) */
+  --primary: #f5414f;
+  --primary-foreground: #ffffff;
 
   --secondary: #1b1d25;
   --secondary-foreground: #f4f4f7;
@@ -91,36 +91,38 @@
   --accent: #23252f;
   --accent-foreground: #f4f4f7;
 
-  --destructive: #f2647b;
+  /* Danger/error shares the brand red — only ever shown as text/tint, never a
+     solid button, so it can't be confused with a primary action. */
+  --destructive: #f5414f;
 
   /* Hairline borders carry elevation instead of heavy shadows */
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.12);
-  --ring: #7c6cf0;
+  --ring: #f5414f;
 
-  /* Status colors — desaturated to sit calmly on dark */
+  /* Status colors — distinct hues so they read clearly next to the red accent */
   --status-watching: #4fd1c5;
-  --status-completed: #7c6cf0;
+  --status-completed: #34d399;
   --status-plan: #a8abb5;
   --status-hold: #f5b14c;
-  --status-dropped: #f2647b;
+  --status-dropped: #f5414f;
   --status-rewatching: #6e8bf0;
 
   /* Charts (stats dashboard) */
-  --chart-1: #7c6cf0;
+  --chart-1: #f5414f;
   --chart-2: #4fd1c5;
   --chart-3: #f5b14c;
-  --chart-4: #f2647b;
+  --chart-4: #34d399;
   --chart-5: #6e8bf0;
 
   --sidebar: #0e0f14;
   --sidebar-foreground: #f4f4f7;
-  --sidebar-primary: #7c6cf0;
-  --sidebar-primary-foreground: #0b0c10;
+  --sidebar-primary: #f5414f;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1b1d25;
   --sidebar-accent-foreground: #f4f4f7;
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #7c6cf0;
+  --sidebar-ring: #f5414f;
 }
 
 @layer base {
@@ -140,7 +142,7 @@
     /* A single, static, very subtle accent glow at the top — no animated gradients */
     background-image: radial-gradient(
       120rem 50rem at 50% -28rem,
-      rgba(124, 108, 240, 0.1),
+      rgba(245, 65, 79, 0.07),
       transparent 60%
     );
     background-attachment: fixed;

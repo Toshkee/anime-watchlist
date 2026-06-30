@@ -1,4 +1,4 @@
-# Deploying Senpai to Vercel
+# Deploying Arc to Vercel
 
 A ~10-minute checklist. You need a [Neon](https://neon.tech) account (free Postgres)
 and a [Vercel](https://vercel.com) account. Everything in the repo is already wired

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  availableEpisodes,
   episodesLabel,
   formatLabel,
   formatScore,
@@ -60,5 +61,24 @@ describe("metaLine", () => {
     expect(metaLine(["TV", null, 2021, undefined, "", "24 eps"])).toBe(
       "TV · 2021 · 24 eps",
     );
+  });
+});
+
+describe("availableEpisodes", () => {
+  it("uses the real total for finished shows", () => {
+    expect(availableEpisodes(28, null)).toBe(28);
+    expect(availableEpisodes(1, null)).toBe(1);
+  });
+  it("falls back to the latest aired episode for ongoing shows", () => {
+    // One Piece: no fixed total, next airing is 1169 → 1168 aired.
+    expect(availableEpisodes(null, { episode: 1169 })).toBe(1168);
+  });
+  it("prefers the known total even while airing", () => {
+    expect(availableEpisodes(28, { episode: 13 })).toBe(28);
+  });
+  it("returns null when nothing is known", () => {
+    expect(availableEpisodes(null, null)).toBeNull();
+    expect(availableEpisodes(null, undefined)).toBeNull();
+    expect(availableEpisodes(null, { episode: 1 })).toBeNull();
   });
 });

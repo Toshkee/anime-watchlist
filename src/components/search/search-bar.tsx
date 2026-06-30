@@ -31,9 +31,10 @@ export function SearchBar({
     if (trimmed) params.set("q", trimmed);
     else params.delete("q");
     const qs = params.toString();
-    const href = qs ? `/search?${qs}` : "/search";
+    const href = qs ? `/?${qs}` : "/";
     startTransition(() => {
-      if (pathname.startsWith("/search")) {
+      // On the Browse surface, replace (no history spam); elsewhere, navigate to it.
+      if (pathname === "/") {
         router.replace(href, { scroll: false });
       } else {
         router.push(href);

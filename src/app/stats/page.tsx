@@ -205,8 +205,8 @@ function EmptyStats() {
         Add anime to your watchlist and track a few episodes — your stats will
         come to life here.
       </p>
-      <Link href="/search" className={`${buttonVariants()} mt-6 h-10 px-5`}>
-        Discover anime
+      <Link href="/" className={`${buttonVariants()} mt-6 h-10 px-5`}>
+        Browse anime
       </Link>
     </div>
   );

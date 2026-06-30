@@ -1,6 +1,7 @@
 import type { Prisma, WatchStatus } from "@prisma/client";
 
 import { getAnimeDetail } from "@/lib/anilist";
+import { availableEpisodes } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 
 const TITLE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // refresh cached metadata weekly
@@ -9,12 +10,17 @@ const TITLE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // refresh cached metadata weekly
  * Make sure a Title row exists for this AniList id (our local cache of the
  * upstream metadata). Refreshes if stale. Returns null if AniList has no such
  * title and we have nothing cached.
+ *
+ * `episodes` is stored as the *available* episode count (see availableEpisodes):
+ * the true total for finished shows, or the latest aired episode for ongoing
+ * ones — this is what caps a user's progress. Ongoing shows (null total) gain
+ * episodes weekly, so we never trust a cached null cap and always refetch them.
  */
 export async function ensureTitleCached(animeId: number) {
   const existing = await prisma.title.findUnique({ where: { id: animeId } });
-  if (existing && Date.now() - existing.updatedAt.getTime() < TITLE_TTL_MS) {
-    return existing;
-  }
+  const fresh =
+    existing && Date.now() - existing.updatedAt.getTime() < TITLE_TTL_MS;
+  if (fresh && existing.episodes != null) return existing;
 
   const detail = await getAnimeDetail(animeId);
   if (!detail) return existing ?? null;
@@ -25,7 +31,7 @@ export async function ensureTitleCached(animeId: number) {
     coverColor: detail.coverColor,
     bannerImage: detail.bannerImage,
     format: detail.format,
-    episodes: detail.episodes,
+    episodes: availableEpisodes(detail.episodes, detail.nextAiringEpisode),
     duration: detail.duration,
     averageScore: detail.averageScore,
     seasonYear: detail.seasonYear,

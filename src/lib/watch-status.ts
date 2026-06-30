@@ -35,6 +35,6 @@ export const STATUS_HEX: Record<WatchStatus, string> = {
   REWATCHING: "#6e8bf0",
   PLAN_TO_WATCH: "#a8abb5",
   ON_HOLD: "#f5b14c",
-  COMPLETED: "#7c6cf0",
-  DROPPED: "#f2647b",
+  COMPLETED: "#34d399",
+  DROPPED: "#f5414f",
 };

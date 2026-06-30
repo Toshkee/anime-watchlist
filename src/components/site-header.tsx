@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { Clapperboard, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 import { auth } from "@/auth";
 import { signOutAction } from "@/lib/actions/auth";
+import { ArcMark } from "@/components/arc-logo";
+import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -25,8 +27,7 @@ export async function SiteHeader() {
   const user = session?.user;
 
   const nav = [
-    { href: "/", label: "Discover" },
-    { href: "/search", label: "Search" },
+    { href: "/", label: "Browse" },
     { href: "/calendar", label: "Calendar" },
     ...(user
       ? [
@@ -39,26 +40,16 @@ export async function SiteHeader() {
   return (
     <header className="border-border/60 bg-background/70 sticky top-0 z-40 border-b backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
-        <Link href="/" className="group flex items-center gap-2">
-          <span className="bg-primary/15 text-primary ring-primary/25 group-hover:bg-primary/25 grid size-8 place-items-center rounded-lg ring-1 transition-colors">
-            <Clapperboard className="size-4.5" />
+        <div className="flex items-center gap-2 select-none">
+          <span className="bg-primary/15 text-primary ring-primary/25 grid size-8 place-items-center rounded-lg ring-1">
+            <ArcMark className="size-5" />
           </span>
           <span className="font-heading text-lg font-semibold tracking-tight">
-            Senpai
+            Arc
           </span>
-        </Link>
+        </div>
 
-        <nav className="hidden items-center gap-1 text-sm sm:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-1.5 transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <MainNav items={nav} />
 
         <div className="ml-auto flex items-center gap-2">
           <Link
