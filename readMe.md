@@ -1,77 +1,123 @@
-## ANIME WATCHLIST ##
+# 🎬 Senpai — a modern anime tracker
 
-Anime Watchlist is a full-stack CRUD web application where users can browse, add, and manage their favorite anime series.
-It lets you explore a curated list of popular animes, add your own custom entries with images, and organize them into your personal watchlist.
+[![CI](https://github.com/Toshkee/anime-watchlist/actions/workflows/ci.yml/badge.svg)](https://github.com/Toshkee/anime-watchlist/actions/workflows/ci.yml)
+[![E2E](https://github.com/Toshkee/anime-watchlist/actions/workflows/e2e.yml/badge.svg)](https://github.com/Toshkee/anime-watchlist/actions/workflows/e2e.yml)
 
-⸻
+> Search 500,000+ anime, build your watchlist, track episode progress, rate what you watch, and turn your taste into stats.
 
-##  Features
+Senpai is a full rebuild of an earlier General Assembly bootcamp project. The original was a server-rendered **Express + EJS + MongoDB** CRUD app with a hardcoded catalog. This version is a typed, tested, API-driven product built on a modern stack — kept as a **before/after engineering case study**.
 
-✅ User Authentication — Register and log in securely.
-✅ Dashboard — Explore a collection of default anime titles with detailed info and posters.
-✅ Add New Anime — Create your own anime entries with title, description, genre, episodes, and custom image uploads.
-✅ Image Upload via Cloudinary — Upload posters that are stored safely in the cloud.
-✅ Watchlist — Add animes from the dashboard to your personal watchlist.
-✅ Anime Details Page — View full details of any anime in a clean, dedicated page.
-✅ Delete Functionality — Remove your own animes from the dashboard anytime.
-✅ Responsive Design — Works beautifully across desktops and mobile devices.
-✅ Session Management — Keeps users logged in securely using Express sessions.
+**Live demo:** _coming soon (Vercel)_ · **Original (v1):** preserved on the [`legacy-express`](https://github.com/Toshkee/anime-watchlist/tree/legacy-express) branch.
 
-⸻
+---
 
-## 🧠 Tech Stack
+## ✨ Why this rebuild
 
-Frontend
-	•	HTML5
-	•	CSS3
-	•	EJS (Embedded JavaScript Templates)
+|              | v1 (bootcamp)                                               | v2 (this repo)                                        |
+| ------------ | ----------------------------------------------------------- | ----------------------------------------------------- |
+| Stack        | Express 5 + EJS + MongoDB                                   | Next.js 16 (App Router) + TypeScript + Tailwind v4    |
+| Catalog      | 20 hardcoded titles in `data.js`                            | Live **AniList GraphQL** API (500k+ titles)           |
+| Data layer   | Overloaded boolean flags; watchlist copied whole documents  | Prisma + PostgreSQL, referenced by AniList id         |
+| Auth         | Hand-rolled `express-session` (in-memory, breaks on Heroku) | Auth.js — credentials + OAuth, HTTP-only cookies      |
+| UI           | Animated rainbow gradient, scattered GIFs, Arial            | "Midnight Cinema" design system, poster-forward, dark |
+| Quality      | No tests, `"test": exit 1`                                  | Vitest + Playwright + GitHub Actions CI               |
+| Known issues | IDOR, stored XSS, DB wiped on every dashboard load          | Audited and fixed in the rebuild                      |
 
-Backend
-	•	Node.js
-	•	Express.js
-	•	Mongoose (for MongoDB)
-	•	Multer (for image uploads)
-	•	Cloudinary SDK (for cloud image storage)
-	•	bcrypt.js (for password hashing)
-	•	express-session (for authentication sessions)
-	•	dotenv (for environment variable management)
+---
 
-Database
-	•	MongoDB Atlas
+## 🚀 Features
 
+- 🔎 **Live search** over AniList with URL-driven filters (genre, format, year, sort) — shareable and back-button correct
+- 🔥 **Discover** — trending now + popular this season, streamed via React Suspense
+- 🎞️ **Cinematic detail pages** — full-bleed banner with a per-title **extracted-color hero**, synopsis, tags, studios, score, and next-episode countdown
+- 🔐 **Auth.js sign-in** — credentials (bcrypt) + optional OAuth, JWT sessions, route protection via proxy/middleware
+- ✅ **Watchlist** with a status workflow (Watching / Completed / Plan / On Hold / Dropped / Rewatching), episode progress, and ratings — with **optimistic UI**
+- 📊 **Personal stats dashboard** — episodes & hours watched, completion rate, score distribution, and genre breakdown (Recharts)
+- 📅 **Airing calendar** — the next 7 days of episodes with live countdowns
+- 🌑 **Midnight Cinema design system** — graphite dark theme, one signature accent, poster-forward 2:3 grid, motion that respects `prefers-reduced-motion`
+- 🖼️ Image optimization via `next/image`, server-side AniList proxy with rate-limit-aware caching
 
-  ## 💡 How to Use
-	1.	Register for an account or log in if you already have one.
-	2.	Explore the Dashboard — it includes popular animes by default.
-	3.	Click Add New Anime to create your own anime entry with a custom image.
-	4.	Press Add to My Watchlist on any anime card to include it in your personal list.
-	5.	Go to My Watchlist to see your saved shows or update their notes/status.
-	6.	You can also delete your custom anime entries anytime.
+**On the roadmap**
 
-  ## 💅 Styling & UI
+- 🌐 Live Vercel demo (Neon Postgres)
+- 🗂️ Jikan/MyAnimeList fallback provider
 
-Anime Watchlist features a dark neon-themed interface inspired by anime aesthetics —
-animated gradient backgrounds, glowing buttons, and character gifs for visual personality.
-Everything is responsive and visually clean, ensuring smooth navigation and readability.
+---
 
-⸻
+## 🧱 Tech stack
 
-## 🧩 Possible Future Improvements
-	•	🔍 Search & filter functionality
-	•	⭐ Ratings system
-	•	🖼️ Drag-and-drop image uploads
-	•	📱 Further mobile optimization
-	•	🧾 Sorting and categorization by genre or status
+- **Framework:** Next.js 16 (App Router, Server Components, Server Actions), React 19, TypeScript
+- **Styling:** Tailwind CSS v4, shadcn/ui (Base UI), lucide icons
+- **Data:** AniList GraphQL API, Prisma + PostgreSQL
+- **Auth:** Auth.js (next-auth v5) — credentials + OAuth, bcrypt password hashing
+- **Charts:** Recharts
+- **Testing:** Vitest + Testing Library (unit/integration), Playwright (E2E)
+- **CI:** GitHub Actions — lint, typecheck, format, unit tests, and a Playwright happy-path against a Postgres service
+- **Tooling:** ESLint, Prettier (+ Tailwind class sorting)
 
+## 🏗️ Architecture
 
-##  🗂️ Credits
+```
+src/
+  app/                 # routes (App Router)
+    page.tsx           #   home / discover
+    search/            #   filtered search
+    anime/[id]/        #   cinematic detail page
+    library/           #   per-user watchlist (auth-guarded)
+    stats/             #   stats dashboard (auth-guarded)
+    calendar/          #   airing schedule
+    login/ register/   #   auth screens
+    api/auth/          #   Auth.js route handlers
+  components/
+    anime/             # poster card/grid, track + entry controls
+    search/            # search bar + filter bar (client)
+    stats/             # Recharts visualizations (client)
+    auth/              # auth form
+    ui/                # shadcn primitives
+  lib/
+    anilist/           # typed API layer (client/queries/types/normalize/index)
+    actions/           # server actions (auth, watchlist)
+    auth.ts            # Auth.js config (Node) + auth.config.ts (edge-safe)
+    prisma.ts          # Prisma singleton
+    watchlist.ts       # watchlist data access + TTL title cache
+    validation.ts      # zod schemas
+    format.ts          # presentation helpers
+  proxy.ts             # route protection (Next 16 middleware)
+prisma/
+  schema.prisma        # User / WatchlistEntry / Title + Auth.js models
+```
 
-  Name: Pavle Tosic
-  Email: tosiicp@gmail.com
-  GitHub: https://github.com/Toshkee
+The browser never talks to AniList directly — all calls go through the server, where responses are normalized into one shape and cached (Next.js Data Cache + a Postgres TTL cache for tracked titles). Watchlist mutations are owner-scoped server actions, closing the v1 IDOR where any user could edit any row.
 
-  ## Deployment link
+## 🛠️ Getting started
 
-  https://animee-watchlist-app-724b6a827c81.herokuapp.com/
- 
- ![Screenshot of the idea](/assets/anime-watchlist.gif)
+Requires Node 20+ and a PostgreSQL database.
+
+```bash
+npm install
+cp .env.example .env          # set DATABASE_URL + AUTH_SECRET
+npx auth secret               # generates AUTH_SECRET (or: openssl rand -base64 32)
+npx prisma migrate dev        # create the schema in your database
+npm run dev                   # http://localhost:3000
+```
+
+Search and browsing work with no account; the watchlist and stats need a signed-in user.
+
+**Scripts:** `dev` · `build` · `start` · `lint` · `typecheck` · `format` · `test` · `test:e2e`
+
+```bash
+npm test          # Vitest unit/integration suite
+npm run test:e2e  # Playwright happy path (auto-starts the app)
+```
+
+## ☁️ Deploy
+
+Pre-wired for **Vercel + Neon Postgres** — see **[DEPLOY.md](./DEPLOY.md)**. `vercel.json`
+runs `prisma migrate deploy` on each deploy and a `postinstall` hook generates the Prisma
+client, so going live is just setting env vars and clicking **Deploy**.
+
+---
+
+## 🙋 Credits
+
+Built by **Pavle Tosic** · [GitHub](https://github.com/Toshkee). Anime data courtesy of [AniList](https://anilist.co).
