@@ -106,26 +106,59 @@ const seed = [
   },
 ];
 
+// Pull real cover art, banners, and accent colors from AniList so the seeded
+// library and detail pages render like the live app instead of blank posters.
+const artById = new Map();
+{
+  const query = `
+    query ($ids: [Int]) {
+      Page(perPage: 50) {
+        media(id_in: $ids, type: ANIME) {
+          id
+          seasonYear
+          coverImage { extraLarge large color }
+          bannerImage
+        }
+      }
+    }`;
+  const res = await fetch("https://graphql.anilist.co", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ query, variables: { ids: seed.map((s) => s.id) } }),
+  });
+  if (!res.ok) throw new Error(`AniList request failed: ${res.status}`);
+  const { data } = await res.json();
+  for (const m of data.Page.media) {
+    artById.set(m.id, {
+      // Mirror the app's normalize step: prefer extraLarge, fall back to large.
+      coverImage: m.coverImage?.extraLarge ?? m.coverImage?.large ?? null,
+      coverColor: m.coverImage?.color ?? null,
+      bannerImage: m.bannerImage ?? null,
+      seasonYear: m.seasonYear ?? null,
+    });
+  }
+}
+const missingArt = seed.filter((s) => !artById.has(s.id)).map((s) => s.id);
+if (missingArt.length) console.warn("no AniList art for ids:", missingArt.join(", "));
+
 for (const s of seed) {
+  const art = artById.get(s.id) ?? {};
+  const titleData = {
+    title: s.title,
+    duration: s.dur,
+    episodes: s.eps,
+    averageScore: s.score,
+    genres: s.genres,
+    format: "TV",
+    coverImage: art.coverImage ?? null,
+    coverColor: art.coverColor ?? null,
+    bannerImage: art.bannerImage ?? null,
+    seasonYear: art.seasonYear ?? null,
+  };
   await prisma.title.upsert({
     where: { id: s.id },
-    update: {
-      title: s.title,
-      duration: s.dur,
-      episodes: s.eps,
-      averageScore: s.score,
-      genres: s.genres,
-      format: "TV",
-    },
-    create: {
-      id: s.id,
-      title: s.title,
-      duration: s.dur,
-      episodes: s.eps,
-      averageScore: s.score,
-      genres: s.genres,
-      format: "TV",
-    },
+    update: titleData,
+    create: { id: s.id, ...titleData },
   });
   await prisma.watchlistEntry.upsert({
     where: { userId_titleId: { userId: user.id, titleId: s.id } },
