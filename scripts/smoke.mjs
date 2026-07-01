@@ -139,7 +139,8 @@ const artById = new Map();
   }
 }
 const missingArt = seed.filter((s) => !artById.has(s.id)).map((s) => s.id);
-if (missingArt.length) console.warn("no AniList art for ids:", missingArt.join(", "));
+if (missingArt.length)
+  console.warn("no AniList art for ids:", missingArt.join(", "));
 
 for (const s of seed) {
   const art = artById.get(s.id) ?? {};
