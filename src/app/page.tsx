@@ -62,7 +62,9 @@ export async function generateMetadata({
   searchParams,
 }: BrowsePageProps): Promise<Metadata> {
   const { q } = await searchParams;
-  return { title: q ? `“${q}” — Browse` : "Browse" };
+  // The landing/browse view keeps the brand title ("Arc — Track the anime you
+  // love") from the root layout default; only an active search gets its own.
+  return q ? { title: `“${q}” — Browse` } : {};
 }
 
 export default async function BrowsePage({ searchParams }: BrowsePageProps) {
