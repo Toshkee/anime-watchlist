@@ -1,9 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LogOut } from "lucide-react";
 
 import { auth } from "@/auth";
 import { signOutAction } from "@/lib/actions/auth";
-import { ArcMark } from "@/components/arc-logo";
 import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
@@ -40,14 +40,20 @@ export async function SiteHeader() {
   return (
     <header className="border-border/60 bg-background/70 sticky top-0 z-40 border-b backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
-        <div className="flex items-center gap-2 select-none">
-          <span className="bg-primary/15 text-primary ring-primary/25 grid size-8 place-items-center rounded-lg ring-1">
-            <ArcMark className="size-5" />
-          </span>
-          <span className="font-heading text-lg font-semibold tracking-tight">
-            Arc
-          </span>
-        </div>
+        <Link
+          href="/"
+          aria-label="Arc Anime — home"
+          className="group flex shrink-0 items-center select-none"
+        >
+          <Image
+            src="/arc-logo.png"
+            alt="Arc Anime"
+            width={550}
+            height={480}
+            priority
+            className="h-11 w-auto drop-shadow-[0_2px_10px_rgba(245,65,79,0.35)] transition-transform duration-200 group-hover:scale-105"
+          />
+        </Link>
 
         <MainNav items={nav} />
 
